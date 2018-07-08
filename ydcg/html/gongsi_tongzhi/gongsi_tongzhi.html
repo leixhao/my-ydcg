@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>一定成功</title>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+    <!-- CSS Libs -->
+    <link rel="stylesheet" type="text/css" href="../../lib/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/jquery.mloading.css">
+    <link href="../../lib/css/SimpleCanleder.css"rel="stylesheet">
+    <link rel="stylesheet" href="../../css/cxcalendar.css">
+    <!-- CSS App -->
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="../../css/themes/flat-green.css">
+    <style>
+        input{
+            margin:0;
+        }
+        .select2-container--default .select2-results>.select2-results__options{
+            max-height: 500px;
+        }
+        .iconBox{
+            position: relative;
+            margin: 4px 5px 0 0;
+            padding: 0 19px 0 4px;
+            max-width: 100%;
+            white-space: nowrap;
+            /*overflow: hidden;*/
+            text-overflow: ellipsis;
+            border: 1px solid #e8e8e8;
+            height: 38px;
+            line-height: 38px;
+            color: #666;
+            text-decoration: none;
+        }
+        .iconBox:hover{
+            border-color: #f40;
+        }
+        .patientName,.appointName,.payTime,.payMoney,.team,.depart,.member,.hosp,.treat,.account,.doctor,.sta,.pageBox,.starTime,.endTime{
+            display: none;
+        }
+        .selectBox input{
+            margin: 0;
+            padding: 0;
+            border: 0;
+            float: none;
+            margin: 0 5px;
+            width: 60%;
+            height: 100%;
+            line-height: 38px;
+            text-align: left;
+            background: #fff;
+            /*border: 1px solid #ebebeb;*/
+            outline: none;
+            color: #bdbdbd;
+            font-size: 14px;
+        }
+        .pay_time{
+            width:80%!important;
+        }
+        .icon-btn-x{
+            color: red;
+            cursor: pointer;
+            /* position: absolute; */
+            /* right: 0px; */
+            border: 1px solid red;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .select2-results{
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+        .lable{
+            color:blue;
+        }
+        .cxcalendar .date_hd{
+            height: inherit;
+        }
+    </style>
+</head>
+
+<body class="flat-blue">
+<div class="app-container">
+    <div class="row content-container">
+        <div class="row content-container">
+            <nav id="navbar" class="navbar navbar-default navbar-fixed-top navbar-top">
+                <div class="container-fluid" style="text-align: center;">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-expand-toggle">
+                            <i class="fa fa-bars icon"></i>
+                        </button>
+                        <ol class="breadcrumb navbar-breadcrumb">
+                            <li>公司通知</li>
+                        </ol>
+                        <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                            <i class="fa fa-th icon"></i>
+                        </button>
+                    </div>
+                    <marquee style="line-height: 60px;width: 50%;display: inline-block;font-size: 20px;color: purple;"></marquee>
+                    <ul class="nav navbar-nav navbar-right">
+                        <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                            <i class="fa fa-times icon"></i>
+                        </button>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-comments-o"></i></a>
+                            <ul class="dropdown-menu animated fadeInDown">
+                                <li class="title">
+                                    通知 <span class="badge pull-right">0</span>
+                                </li>
+                                <li class="message">
+                                    没有新的通知
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown danger">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-star-half-o"></i><span class=" totalMsg"></span></a>
+                            <ul class="dropdown-menu danger  animated fadeInDown">
+                                <li class="title">
+                                    提示 <span class="badge pull-right totalMsg"></span>
+                                </li>
+                                <li>
+                                    <ul class="list-group notifications">
+                                        <a href="../yeji_guanli/yeji_dai_shenhe.html">
+                                            <li class="list-group-item">
+                                                <span class="badge dai_shen_yeji">0</span> <i class="fa fa-exclamation-circle icon"></i> 待审核业绩
+                                            </li>
+                                        </a>
+                                        <a href="../yeji_guanli/zuyuan_yeji.html">
+                                            <li class="list-group-item">
+                                                <span class="badge success zuyuan_yeji">0</span> <i class="fa fa-check icon"></i> 组员业绩
+                                            </li>
+                                        </a>
+                                        <a href="../yeji_guanli/yeji.html">
+                                            <li class="list-group-item">
+                                                <span class="badge danger wode_yeji">0</span> <i class="fa fa-comments icon"></i> 我的业绩
+                                            </li>
+                                        </a>
+                                        <a href="#">
+                                            <li class="list-group-item message">
+                                                敬请期待...
+                                            </li>
+                                        </a>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown profile">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="username"></span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu animated fadeInDown">
+                                <li class="profile-img">
+                                    <img src="../../img/profile/picjumbo.com_HNCK4153_resize.jpg" class="profile-img">
+                                </li>
+                                <li>
+                                    <div class="profile-info">
+                                        <h4 class="username"></h4>
+                                        <p style="color: red;"><span class="role"></span> ←→ <span class="teamName"></span></p>
+                                        <div class="btn-group margin-bottom-2x" role="group">
+                                            <button type="button" class="btn btn-default headimg_exchange"><i class="fa fa-user"></i> 更换头像</button>
+                                            <button type="button" class="btn btn-default logout"><i class="fa fa-sign-out"></i> 退出登陆</button>
+                                            <input type="file" accept="image/*" style="display: none;" name="headimg_exchange" id="headimg_exchange" />
+
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="sidebar" class="side-menu sidebar-inverse">
+
+            </div>
+            <!-- Main Content -->
+            <div class="container-fluid">
+                <div class="side-body">
+                    <div class="page-title">
+                        <span class="title">公司通知列表</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 detail">
+                            <div class="card">
+                                <div class="card-body">
+                                    <table class="table table-striped" cellspacing="0" width="100%" id="tableExcel">
+                                        <thead>
+                                        </thead>
+
+                                        <tbody>
+                                        <ul class="message-list">
+                                            <a href="#">
+                                                <li>
+                                                    <img src="http://ydcg.cpylss.com/scssimg/pictures/15/10/b3f76f0d-ba82-4290-a1fc-09ba639f5185_20180607083512.jpg" class="profile-img personImg pull-left">
+                                                    <div class="message-block">
+                                                        <div><span class="message-datetime">注意事项</span>
+                                                        </div>
+                                                        <div class="message">注意事项:一定成功电脑版一个浏览器只能登陆一个账号!</div>
+                                                    </div>
+                                                </li>
+                                            </a>
+                                        </ul>
+                                        </tbody>
+                                    </table>
+                                    <div class="M-box"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="app-footer">
+            <div class="wrapper">
+                <span class="pull-right">1.0 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © 2017 Copyright. 期待更多
+                <a href="http://http://www.bj11ss.com/" target="_blank" title="医来伸手">顺昌盛世</a>
+                <a href="http://www.bj11ss.com/" title="医来伸手" target="_blank">----医来伸手</a>
+            </div>
+        </footer>
+        <div>
+            <!-- Javascript Libs -->
+            <script type="text/javascript" src="../../lib/js/jquery.min.js"></script>
+            <script src="../../lib/js/calendar.js"></script>
+            <script type="text/javascript" src="../../lib/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/Chart.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/bootstrap-switch.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/jquery.matchHeight-min.js"></script>
+            <script type="text/javascript" src="../../lib/js/jquery.dataTables.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/dataTables.bootstrap.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/select2.full.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/jquery.mloading.js"></script>
+            <script src="../../lib/js/jquery.pagination.js"></script>
+
+
+            <script src="../../lib/js/SimpleCanleder.js"></script>
+
+            <!-- Javascript -->
+            <script type="text/javascript" src="../../js/app.js"></script>
+            <script src="../../js/dateFormat.js"></script>
+            <script type="text/javascript" src="../../js/theming.js"></script>
+            <script type="text/javascript" src="../../js/themings.js"></script>
+
+            <script src="../../js/config.js"></script>
+            <script src="../../js/uploadImg.js"></script>
+            <script src="../../js/session_expire.js"></script>
+            <script type="text/javascript" src="../../js/personal_msg.js"></script>
+            <script type="text/javascript" src="../../js/excel.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    function timetrans(date){
+                        var date = new Date(date);//如果date为13位不需要乘1000
+                        var Y = date.getFullYear() + '-';
+                        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+                        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+                        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+                        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+                        return Y+M+D+h+m+s;
+                    };
+
+                    $.ajax({
+                        url:config.rootUrl + "user/getListMessage.do",
+                        data:{
+                            userId:session_login.info.userId,
+                            page:1,
+                            rows:1000,
+                        },
+                        async:true,
+                        type:"post",
+                        success:function(data){
+                            var info = data.info;
+                            console.log(data);
+                            var list = $(".message-list")[0];
+                            list.innerHTML = "";
+                            for(i in info){
+                                list.innerHTML += '<a href="#" class="detail" data-id="'+ info[i].mId +'">'+
+                                    '<li>'+
+                                    '<img src="'+ info[i].headImage +'" class="profile-img personImg pull-left">'+
+                                    '<div class="message-block">'+
+                                    '<div><span class="message-datetime" style="font-size: 14px;color:#666666">'+ info[i].realName +'</span>'+
+                                    '</div>'+
+                                    '<div class="message" style="font-size: 16px">'+ info[i].theme +'</div>'+
+                                    '<div class="time" style="color: #ccc">'+ timetrans(info[i].createTime) +'</div>'+
+                                '</div>'+
+                                '</li>'+
+                                '</a>'
+                            };
+                            $(".message-list").on("click",".detail",function(){
+                                var mId = $(this).attr("data-id");
+                                window.location.href = "tongzhi_xiangqing.html?mId=" + mId;
+                            });
+                        }
+                    })
+                })
+            </script>
+</body>
+
+</html>

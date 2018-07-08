@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>一定成功</title>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+    <!-- CSS Libs -->
+    <link rel="stylesheet" type="text/css" href="../../lib/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/checkbox3.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/jquery.mloading.css">
+
+    <!-- CSS App -->
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="../../css/themes/flat-green.css">
+    <style type="text/css">
+        .select2-results {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="flat-blue">
+<div class="app-container">
+    <div class="row content-container">
+        <div class="row content-container">
+            <nav id="navbar" class="navbar navbar-default navbar-fixed-top navbar-top">
+                <div class="container-fluid" style="text-align: center;">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-expand-toggle">
+                            <i class="fa fa-bars icon"></i>
+                        </button>
+                        <ol class="breadcrumb navbar-breadcrumb">
+                            <li>初诊任务详情</li>
+
+                        </ol>
+                        <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                            <i class="fa fa-th icon"></i>
+                        </button>
+                    </div>
+                    <marquee style="line-height: 60px;width: 50%;display: inline-block;font-size: 20px;color: purple;"></marquee>
+                    <ul class="nav navbar-nav navbar-right">
+                        <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                            <i class="fa fa-times icon"></i>
+                        </button>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-comments-o"></i></a>
+                            <ul class="dropdown-menu animated fadeInDown">
+                                <li class="title">
+                                    通知 <span class="badge pull-right">0</span>
+                                </li>
+                                <li class="message">
+                                    没有新的通知
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown danger">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-star-half-o"></i><span class=" totalMsg"></span></a>
+                            <ul class="dropdown-menu danger  animated fadeInDown">
+                                <li class="title">
+                                    提示 <span class="badge pull-right totalMsg"></span>
+                                </li>
+                                <li>
+                                    <ul class="list-group notifications">
+                                        <a href="../yeji_guanli/yeji_dai_shenhe.html">
+                                            <li class="list-group-item">
+                                                <span class="badge dai_shen_yeji">0</span> <i class="fa fa-exclamation-circle icon"></i> 待审核业绩
+                                            </li>
+                                        </a>
+                                        <a href="../yeji_guanli/zuyuan_yeji.html">
+                                            <li class="list-group-item">
+                                                <span class="badge success zuyuan_yeji">0</span> <i class="fa fa-check icon"></i> 组员业绩
+                                            </li>
+                                        </a>
+                                        <a href="../yeji_guanli/yeji.html">
+                                            <li class="list-group-item">
+                                                <span class="badge danger wode_yeji">0</span> <i class="fa fa-comments icon"></i> 我的业绩
+                                            </li>
+                                        </a>
+                                        <a href="#">
+                                            <li class="list-group-item message">
+                                                敬请期待...
+                                            </li>
+                                        </a>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown profile">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="username"></span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu animated fadeInDown">
+                                <li class="profile-img">
+                                    <img src="../../img/profile/picjumbo.com_HNCK4153_resize.jpg" class="profile-img">
+                                </li>
+                                <li>
+                                    <div class="profile-info">
+                                        <h4 class="username"></h4>
+                                        <p style="color: red;"><span class="role"></span> ←→ <span class="teamName"></span></p>
+                                        <div class="btn-group margin-bottom-2x" role="group">
+                                            <button type="button" class="btn btn-default headimg_exchange"><i class="fa fa-user"></i> 更换头像</button>
+                                            <button type="button" class="btn btn-default logout"><i class="fa fa-sign-out"></i> 退出登陆</button>
+                                            <input type="file" accept="image/*" style="display: none;" name="headimg_exchange" id="headimg_exchange" />
+
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="sidebar" class="side-menu sidebar-inverse">
+            </div>
+            <!-- Main Content -->
+            <div class="container-fluid">
+                <div class="side-body">
+                    <div class="page-title">
+                        <span class="title">操作提示:</span><span class="tips">当前获取到的是战区近一周设置的初诊日来院初诊数量！</span><br />
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <span class="starTime"></span>
+                                        <span class="endTime" style="display: inline-block;margin-left: 50px;"></span>
+                                    </div>
+                                    <div class="xianshi col-lg-6" style="position: relative;">
+                                        <label  class="col-sm-2 control-label" style="padding-right: 0px; padding-top: 30px;">显示数:</label>
+                                        <div class="col-sm-4" style="padding-top: 20px; padding-left: 0px;">
+                                            <input type="text" id="rowNum" class="form-control" placeholder="单页最多显示500"
+                                                   aria-describedby="">
+                                        </div>
+                                        <div class="card-title col-xs-5">
+                                            <div class="title"><button class="btn btn-success searchBtn" style="border:1px solid;border-radius: 20px;width:100%;">查询</button></div>
+                                        </div>
+                                    </div>
+                                    <div class="card-title col-sm-3 col-xs-2 col-lg-2" >
+                                        <button type="submit" onclick="method5('tableExcel','name','出诊任务详情.xls')" class="btn btn-primary"><a id="dlink" href="" style="display: none;"></a><i class="fa fa-download"></i> 导出表格
+                                        </button>
+                                    </div>
+                                    <div class="card-title" style="float:right;text-align: center;">
+                                        <div>
+                                            <a class="btn btn-primary setChuZheng" href="set_chuzhengri.html" style="color:white;display: block;">设置（修改）初诊日<span
+                                                    class="fa fa-chevron-circle-right"></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped" cellspacing="0" width="100%" id="tableExcel">
+                                        <thead>
+                                        <tr>
+                                            <th>战区</th>
+                                            <th>初诊日</th>
+                                            <th>初诊数量</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <div class="M-box"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <div class="wrapper">
+                <span class="pull-right">1.0 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © 2017 Copyright. 期待更多
+                <a href="http://http://www.bj11ss.com/" target="_blank" title="医来伸手">顺昌盛世</a>
+                <a href="http://www.bj11ss.com/" title="医来伸手" target="_blank">----医来伸手</a>
+            </div>
+        </footer>
+        <div>
+            <!-- Javascript Libs -->
+            <script type="text/javascript" src="../../lib/js/jquery.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/Chart.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/bootstrap-switch.min.js"></script>
+
+            <script type="text/javascript" src="../../lib/js/jquery.matchHeight-min.js"></script>
+            <script type="text/javascript" src="../../lib/js/jquery.dataTables.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/dataTables.bootstrap.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/select2.full.min.js"></script>
+            <script type="text/javascript" src="../../lib/js/jquery.mloading.js"></script>
+            <script src="../../js/loading_start.js"></script>
+            <script src="../../lib/js/jquery.pagination.js"></script>
+            <!-- Javascript -->
+            <script type="text/javascript" src="../../js/app.js"></script>
+            <script src="../../js/dateFormat.js"></script>
+            <script type="text/javascript" src="../../js/theming.js"></script>
+            <script type="text/javascript" src="../../js/themings.js"></script>
+
+            <script src="../../js/config.js"></script>
+            <script src="../../js/uploadImg.js"></script>
+            <script src="../../js/session_expire.js"></script>
+            <script type="text/javascript" src="../../js/excel.js"></script>
+            <script type="text/javascript" src="../../js/personal_msg.js"></script>
+
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    if(session_login.info.userName!="scss31376"){
+                        $(".setChuZheng").css("display","none")
+                    }
+                    $(".searchBtn").click(function(){
+                        var row = $("#rowNum").val();
+                        setTable();
+                    });
+                    setTable();
+                    function setTable(type) {
+                        $(".table tbody")[0].innerHTML = "";
+                        var row = $("#rowNum").val();
+                        $.ajax({
+                            url: config.rootUrl + "user/teamVisitResult.do",
+                            data: {
+                                deviceToken: "html5",
+                                deviceType: "html5",
+                                userId: session_login.info.userId,
+                                page:  1,
+                                rows: row||"10",
+                            },
+                            async: true,
+                            type: 'post',
+                            success: function(data) {
+                                if(data.info.length=="0"){
+                                    alert("暂时没有数据!");
+                                    return;
+                                }
+                                $(".starTime").text("开始时间："+data.starTime)
+                                $(".endTime").text("结束时间："+data.endTime)
+                                var info = data.info;
+                                var pageCount = data.pageCount;
+                                var tbody = $(".table tbody")[0];
+                                //添加选项盒子
+                                for(var i = 0; i < info.length; i++) {
+                                    switch (info[i].weekDay){
+                                        case 0:
+                                            var weekDay="星期日";
+                                            break;
+                                        case 1:
+                                            weekDay="星期一";
+                                            break;
+                                        case 2:
+                                            weekDay="星期二";
+                                            break;
+                                        case 3:
+                                            weekDay="星期三";
+                                            break;
+                                        case 4:
+                                            weekDay="星期四";
+                                            break;
+                                        case 5:
+                                            weekDay="星期五";
+                                            break;
+                                        case 6:
+                                            weekDay="星期六";
+                                            break;
+                                        case 7:
+                                            weekDay="未设置";
+                                            break;
+                                    }
+                                    tbody.innerHTML += "<tr data-detailId='" + info[i].detailId + "'   style='cursor:pointer'>" +
+                                        "<td class='goDetail'>" + info[i].teamName + "</td>" +
+                                        "<td class='goDetail'>" + weekDay + "</td>" +
+                                        "<td class='goDetail'>" + info[i].counts + "</td>" +
+                                        "</tr>";
+                                }
+                                //添加选项内容
+                                $('.M-box').pagination({
+                                    pageCount: pageCount,
+                                    showData: 10,
+                                    jump: true,
+                                    coping: true,
+                                    homePage: '首页',
+                                    endPage: '末页',
+                                    prevContent: '上页',
+                                    nextContent: '下页',
+                                    current: 1,
+                                    callback: function(api) {
+                                        $("body").mLoading("show");
+                                        $.ajax({
+                                            url: config.rootUrl + "user/teamVisitResult.do",
+                                            data: {
+                                                deviceToken: "html5",
+                                                deviceType: "html5",
+                                                userId: session_login.info.userId,
+
+                                                page: api.getCurrent() ,
+                                                rows: row||"10",
+
+                                            },
+                                            async: true,
+                                            type: "post",
+                                            success: function(data) {
+                                                var info = data.info;
+                                                var tbody = $(".table tbody")[0];
+                                                tbody.innerHTML = "";
+                                                for(var i = 0; i < info.length; i++) {
+                                                    switch (info[i].weekDay){
+                                                        case 0:
+                                                            var weekDay="星期日";
+                                                            break;
+                                                        case 1:
+                                                            weekDay="星期一";
+                                                            break;
+                                                        case 2:
+                                                            weekDay="星期二";
+                                                            break;
+                                                        case 3:
+                                                            weekDay="星期三";
+                                                            break;
+                                                        case 4:
+                                                            weekDay="星期四";
+                                                            break;
+                                                        case 5:
+                                                            weekDay="星期五";
+                                                            break;
+                                                        case 6:
+                                                            weekDay="星期六";
+                                                            break;
+                                                        case 7:
+                                                            weekDay="未设置";
+                                                            break;
+                                                    }
+                                                    tbody.innerHTML += "<tr data-detailId='" + info[i].detailId + "'   style='cursor:pointer'>" +
+                                                        "<td class='goDetail'>" + info[i].teamName + "</td>" +
+                                                        "<td class='goDetail'>" + weekDay + "</td>" +
+                                                        "<td class='goDetail'>" + info[i].counts + "</td>" +
+                                                        "</tr>";
+                                                }
+                                            },
+                                            error: function() {
+                                                alert("网络错误");
+
+                                            },
+                                            complete: function() {
+                                                $("body").mLoading("hide"); //关闭loading组件
+                                            }
+                                        })
+                                    }
+
+                                });
+
+                            },
+                            error: function(xhr, type, errorThrown) {
+                                alert('网络异常，请稍后再试！');
+                            },
+                            complete: function() {
+                                $("body").mLoading("hide"); //关闭loading组件
+                            }
+                        });
+                    }
+
+                })
+            </script>
+</body>
+
+</html>
