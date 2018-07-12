@@ -297,6 +297,16 @@
                             window.location.href="kao_qing_detail.html?status=late&memberId="+memberId+"&searchDate="+searchDate+"&userName="+userName;
                         }
                     });
+                    $(".weiBtn").on("click",function () {
+                        var memberId=$("#userName").val();
+                        var userName=$("#userName").find("option:selected").text();
+                        var searchDate=$("#searchDate").val();
+                        if($(".wei").text()=="0"){
+                            alert("没有数据！");
+                        }else{
+                            window.location.href="kao_qing_detail.html?status=total&memberId="+memberId+"&searchDate="+searchDate+"&userName="+userName;
+                        }
+                    });
                     $.ajax({
                         url: config.rootUrl + "user/getListTeam.do",
                         data: {
@@ -331,42 +341,42 @@
                             }
                         }
                     });
-                            $.ajax({
-                                url: config.rootUrl + "user/searchUser.do",
-                                data: {
-                                    deviceToken: "html5",
-                                    deviceType: "html5",
-                                    searchName:"",
-                                    page: "1",
-                                    rows: "10000"
-                                },
-                                async: true,
-                                type: 'post',
-                                success: function(data) {
-                                    console.log(data);
-                                    var info = data.info;
-                                    var user = $("#userName");
-                                    //添加选项盒子
-                                    for(var i in info) {
-                                        var _option = document.createElement("option");
-                                        _option.value = info[i].memberId;
-                                        _option.text = info[i].realName;
-                                        user.append(_option);
-                                    }
-                                },
-                                error: function(xhr, type, errorThrown) {
-                                    alert('发生错误！');
-                                },
-                                complete: function() {
-                                    $("#userName").val(memberId).select2({
-                                        placeholder: "请选择组员"
-                                    });
-                                    if(memberId){
-                                        setTable();
-                                    }
-                                    $("body").mLoading("hide"); //关闭loading组件
-                                }
-                            })
+                    $.ajax({
+                        url: config.rootUrl + "user/searchUser.do",
+                        data: {
+                            deviceToken: "html5",
+                            deviceType: "html5",
+                            searchName:"",
+                            page: "1",
+                            rows: "10000"
+                        },
+                        async: true,
+                        type: 'post',
+                        success: function(data) {
+                            console.log(data);
+                            var info = data.info;
+                            var user = $("#userName");
+                            //添加选项盒子
+                            for(var i in info) {
+                                var _option = document.createElement("option");
+                                _option.value = info[i].memberId;
+                                _option.text = info[i].realName;
+                                user.append(_option);
+                            }
+                        },
+                        error: function(xhr, type, errorThrown) {
+                            alert('发生错误！');
+                        },
+                        complete: function() {
+                            $("#userName").val(memberId).select2({
+                                placeholder: "请选择组员"
+                            });
+                            if(memberId){
+                                setTable();
+                            }
+                            $("body").mLoading("hide"); //关闭loading组件
+                        }
+                    })
 
 
                     $("#zhanqu").on("change", function(e) {

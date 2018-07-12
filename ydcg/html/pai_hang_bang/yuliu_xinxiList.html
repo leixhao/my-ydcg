@@ -20,6 +20,8 @@
     <link rel="stylesheet" type="text/css" href="../../lib/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../../lib/css/pagination.css">
     <link rel="stylesheet" type="text/css" href="../../lib/css/jquery.mloading.css">
+    <link href="../../lib/css/SimpleCanleder.css"rel="stylesheet">
+    <link rel="stylesheet" href="css/cxcalendar.css">
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
     <link rel="stylesheet" type="text/css" href="../../css/themes/flat-blue.css">
@@ -136,7 +138,7 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">查看<span style="color:red;">信息排行</span></span>
+                        <span class="title">查看<span style="color:red;">预约信息排行</span></span>
                         <div class="description">
                             默认展现最近一周数据内容！
                         </div>
@@ -145,21 +147,33 @@
                         <div class="col-xs-12">
                             <div class="card">
                                 <div class="card-header">
+                                    <div class="card-title col-sm-2 col-xs-6">
+                                        <lable>开始时间</lable>
+                                        <input name="mydate" id="starTime" type="text" style="width:200px;" class="input_cxcalendar form-control">
+                                    </div>
+                                    <div class="card-title col-sm-2 col-xs-6">
+                                        <lable>结束时间</lable>
+                                        <input name="mydate2" type="text" id="endTime" style="width:200px;" class="input_cxcalendar form-control" >
+                                    </div>
+                                    <div class="card-title col-sm-2 col-xs-6 rows" style="display: none;">
+                                        <lable>页数</lable>
+                                        <input  type="number" class="form-control" id="rows" style="width:100%;padding: 0;" placeholder="最大值500" >
+                                    </div>
+                                    <div class="card-title  col-sm-3 col-xs-2" >
+                                        <button class="btn btn-success dataSearch" style="color:white;width:100px;border:1px solid;-webkit-border-radius: 20px;-moz-border-radius: 20px;border-radius: 20px;">查询</button>
+                                    </div>
                                     <div class="card-title col-sm-3 col-xs-2" >
-                                        <a class="btn btn-primary" onclick="window.history.go(-1);"><返回</a>
-                                    </div><div class="card-title col-sm-3 col-xs-2" style="float:right;">
-                                    <button type="submit"  class="btn btn-success load"><a id="dlink" href="" style="display: none;"></a><i class="fa fa-download"></i> 导出表格
-                                    </button>
-                                </div>
+                                        <button type="submit" onclick="method5('tableExcel','name','信息排行榜.xls')" class="btn btn-primary"><a id="dlink" href="" style="display: none;"></a><i class="fa fa-download"></i> 导出表格
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-striped" cellspacing="0" width="100%" id="tableExcel">
                                         <thead>
                                         <tr>
-                                            <th>打卡时间</th>
-                                            <th>状态</th>
-                                            <th>原因</th>
-                                            <th>打卡位置</th>
+                                            <!--<th>排名</th>-->
+                                            <th>战区</th>
+                                            <th>数量</th>
                                         </tr>
                                         </thead>
 
@@ -183,7 +197,8 @@
         </footer>
         <div>
             <!-- Javascript Libs -->
-            <script type="text/javascript" src="../../lib/js/jquery.min.js"></script>
+            <script src="jquery-1.9.1.js"></script>
+            <script src="js/calendar.js"></script>
             <script type="text/javascript" src="../../lib/js/bootstrap.min.js"></script>
             <script type="text/javascript" src="../../lib/js/Chart.min.js"></script>
             <script type="text/javascript" src="../../lib/js/bootstrap-switch.min.js"></script>
@@ -210,54 +225,78 @@
 
             <script type="text/javascript">
                 $(document).ready(function() {
-                    //  function fn(date){
-                    //     var now = date;
-                    //     var y = now.getYear();
-                    //     var m = now.getMonth();
-                    //     var d = now.getDate();
-                    //     var h = now.getHours();
-                    //     var mm = now.getMinutes();
-                    //     var s = now.getSeconds();
-                    //     var str;
-                    //     if(h>12) {
-                    //         h -= 12;
-                    //         str = " PM";
-                    //     }else{
-                    //         str = " AM";
-                    //     }
-                    //     h = h < 10 ? "0" + h : h;
-                    //     d = d < 10 ? "0" + d : d;
-                    //     m = m < 10 ? "0" + m : m;
-                    //     mm = mm < 10 ? "0" + mm : mm;
-                    //     s = s < 10 ? "0" + s : s;
-                    //     var xy = y + "/" + m + "/" + d + "," + h + ":" + mm + ":" + s;
-                    //     xy += str;
-                    //     return xy;
-                    // };
-                    if (window.location.search != "") {
-                        var status = window.location.search.split("status=")[1].split("&")[0];
-                        var memberId = window.location.search.split("memberId=")[1].split("&")[0];
-                        var searchDate = window.location.search.split("searchDate=")[1].split("&")[0];
-                        var userName = window.location.search.split("userName=")[1].split("&")[0];
+                    if(session_login.info.roleId<3){
+                        $(".M-box").css({"display":"none"})
                     }
-                    $(".load").on("click",function(){
-                        method5('tableExcel','name',decodeURI(userName)+'.xls')
+                    if(session_login.info.roleId==5){
+                        $(".rows").css({"display":"block"})
+                    }
+                    $('.input_cxcalendar').each(function(){
+                        var a = new Calendar({
+                            targetCls: $(this),
+                            type: 'yyyy-mm-dd HH:MM:SS',
+                            wday:2
+                        },function(val){
+                            console.log(val);
+                        });
                     });
-
+                    $('.table tbody').on('click', '.goDetail', function (e) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        var teamId = $(this).parents('tr').attr("data-teamId");
+                        var teamName = $(this).parents('tr').attr("data-teamName");
+                        var starTime=$("#starTime").val();
+                        if(starTime==""){
+                            var d1 = new Date();
+                            var d2 = new Date(d1);
+                            d2.setDate(d1.getDate()-7);
+                            starTime = new Date(d2).format('yyyy-MM-dd hh:mm:ss') ;
+                            $("#starTime").val(starTime);
+                        }
+                        var endTime=$("#endTime").val();
+                        if(endTime==""){
+                            endTime = new Date().format("yyyy-MM-dd hh:mm:ss").replace(/\//g, "-");
+                            $("#endTime").val(endTime);
+                        }
+                        if(session_login.info.roleId=="5"||session_login.info.roleId=="3"){
+                            window.location.href = "../pai_hang_bang/yuliu_xinxiXq.html?teamId=" + teamId+"&teamName="+encodeURI(teamName)+"&starTime="+encodeURI(starTime)+"&endTime="+encodeURI(endTime);
+                        }else{
+                            return;
+                        }
+                    });
+                    $(".dataSearch").on("click",function () {
+                        setTable();
+                    })
                     setTable();
                     function setTable() {
                         $("body").mLoading("show");
+                        $(".table tbody")[0].innerHTML="";
+                        var searchDate = new Date().format("yyyy-MM").replace(/\//g, "-");
+                        var starTime=$("#starTime").val();
+                        if(starTime==""){
+                            var d1 = new Date();
+                            var d2 = new Date(d1);
+                            d2.setDate(d1.getDate()-7);
+                            starTime = new Date(d2).format('yyyy-MM-dd hh:mm:ss') ;
+                            $("#starTime").val(starTime);
+                        }
+                        var endTime=$("#endTime").val();
+                        if(endTime==""){
+                            endTime = new Date().format("yyyy-MM-dd hh:mm:ss").replace(/\//g, "-");
+                            $("#endTime").val(endTime);
+                        }
+                        var rows=$("#rows").val();
                         $.ajax({
-                            url: config.rootUrl + "user/getSignList.do",
+                            url: config.rootUrl + "user/getListAppoint.do",
                             data: {
                                 deviceToken: "html5",
                                 deviceType: "html5",
                                 userId: session_login.info.userId,
-                                status:status,
-                                memberId:memberId,
                                 searchDate:searchDate,
-                                page: 1,
-                                rows: "62",
+                                starTime: starTime,
+                                endTime: endTime ,
+                                page: "1",
+                                rows:rows||30,
                             },
                             async: true,
                             type: 'post',
@@ -266,90 +305,81 @@
                                 var info = data.info;
                                 var pageCount = data.pageCount;
                                 var tbody = $(".table tbody")[0];
+                                for(var i in info){
+                                    if(info[i].realName){
+                                        var _temp=info[i].realName;
+                                    }else if(info[i].teamName){
+                                        var _temp=info[i].teamName;
+                                    }
+                                    if(info[i].headImage){
+                                        var _temp2=info[i].headImage;
+                                    }else if(info[i].teamImage){
+                                        _temp2=info[i].teamImage;
+                                    }
+                                    tbody.innerHTML += "<tr data-teamId="+info[i].teamId+" data-teamName="+info[i].teamName+" style='cursor:pointer;'>" +
+                                        // "<td class='goDetail'>" + info[i].rowId + "</td>" +
+                                        "<td class='goDetail'>" + _temp + "</td>" +
+                                        "<td class='goDetail'>" + info[i].count + "</td>" +
+                                        "</tr>";
+                                }
+                                //添加选项盒子
+                                $('.M-box').pagination({
+                                    pageCount: pageCount,
+                                    showData: 10,
+                                    jump: true,
+                                    coping: true,
+                                    homePage: '首页',
+                                    endPage: '末页',
+                                    prevContent: '上页',
+                                    nextContent: '下页',
+                                    callback: function(api) {
+                                        $("body").mLoading("show");
+                                        $.ajax({
+                                            url: config.rootUrl + "user/getListAppoint.do",
+                                            data: {
+                                                deviceToken: "html5",
+                                                deviceType: "html5",
+                                                userId: session_login.info.userId,
+                                                searchDate:searchDate,
+                                                starTime: starTime,
+                                                endTime: endTime ,
+                                                page: api.getCurrent(),
+                                                rows:rows||30,
+                                            },
+                                            async: true,
+                                            type: "post",
+                                            success: function(data) {
+                                                var info = data.info;
+                                                var tbody = $(".table tbody")[0];
+                                                tbody.innerHTML = "";
+                                                for(var i in info){
+                                                    if(info[i].realName){
+                                                        var _temp=info[i].realName;
+                                                    }else if(info[i].teamName){
+                                                        var _temp=info[i].teamName;
+                                                    }
+                                                    if(info[i].headImage){
+                                                        var _temp2=info[i].headImage;
+                                                    }else if(info[i].teamImage){
+                                                        _temp2=info[i].teamImage;
+                                                    }
+                                                    tbody.innerHTML += "<tr data-teamId="+info[i].teamId+" data-teamName="+info[i].teamName+" style='cursor:pointer;'>" +
+                                                        // "<td class='goDetail'>" + info[i].rowId + "</td>" +
+                                                        "<td class='goDetail'>" + _temp + "</td>" +
+                                                        "<td class='goDetail'>" + info[i].count + "</td>" +
+                                                        "</tr>";
+                                                }
+                                            },
+                                            error: function() {
+                                                alert("网络错误");
+                                            },
+                                            complete: function() {
+                                                $("body").mLoading("hide"); //关闭loading组件
+                                            }
+                                        })
+                                    }
 
-                                //地址栏搜索
-                                var search = window.location.search;
-                                //截取搜索月份
-                                var searchDate = search.split("searchDate=")[1].split("&")[0].split("-")[1];
-                                console.log(searchDate);
-
-                                //当前日期
-                                var myDate = new Date();
-                                //当前月数
-                                var month = myDate.getMonth();
-                                month +=1;
-                                //当前日
-                                var ri = myDate.getDate();
-                                var arr=[],arr1=[],arr2=[];
-                                for(var i=1;i<=ri;i++){
-                                    var num=0;
-                                    for(var j=0;j<info.length;j++){
-                                        console.log(new Date(info[j].signTime).format('dd'));
-                                        if(i == new Date(info[j].signTime).format('dd') ){
-                                            num+=1;
-                                        }
-                                    }
-                                    console.log(i);
-                                    console.log(num);
-                                    if(num==1){
-                                        arr[arr.length]=i;
-                                    }else if(num==0){
-                                        arr1[arr1.length]=i;
-                                    }
-                                }
-                                console.log(arr);
-                                console.log(arr1);
-                                for(var i=0;i<info.length;i++){
-                                    for(var j=0;j<arr.length;j++){
-                                        if(arr[j]== new Date(info[i].signTime).format('dd')){
-                                            arr2[arr2.length] = info[i];
-                                        }
-                                    }
-                                }
-                                console.log(arr2);
-                                for(var i=0;i<arr2.length;i++){
-                                    console.log(new Date(arr2[i].signTime).format('yyyy-MM-dd hh:mm:ss'));
-                                    console.log(new Date(arr2[i].signTime).format('hh'));
-                                    if(new Date(info[i].signTime).format('hh')<=8){
-                                        tbody.innerHTML += "<tr>" +
-                                            "<td >" +  new Date(arr2[i].signTime).format('yyyy-MM-dd')  + "下午</td>" +
-                                            "<td > 未签 </td>" +
-                                            // "<td >" + reason + "</td>" +
-                                            // "<td >" + arr2[i].address + "</td>" +
-                                            "</tr>";
-                                    }else if(new Date(info[i].signTime).format('hh')>=17){
-                                        tbody.innerHTML += "<tr>" +
-                                            "<td >" +  new Date(arr2[i].signTime).format('yyyy-MM-dd')  + "早上</td>" +
-                                            "<td >未签 </td>" +
-                                            // "<td >" + reason + "</td>" +
-                                            // "<td >" + arr2[i].address + "</td>" +
-                                            "</tr>";
-                                    }
-                                }
-                                console.log(ri);
-                                // for(var i in info){
-                                //     if(info[i].status=="success"){
-                                //         var status="";
-                                //     }else if(info[i].status=="early"){
-                                //         status="早退";
-                                //     }else if(info[i].status=="late"){
-                                //         status="迟到";
-                                //     }else if(info[i].status=="outrange"){
-                                //         status="外勤";
-                                //     }
-                                //     if(!info[i].reason){
-                                //         var reason="";
-                                //     }else{
-                                //         reason=info[i].reason;
-                                //     }
-                                    // fn(info[i].signTime);
-                                    // tbody.innerHTML += "<tr>" +
-                                    //     "<td >" +  new Date(info[i].signTime).format('yyyy-MM-dd hh:mm:ss')+ "</td>" +
-                                    //     "<td >" + status + "</td>" +
-                                    //     "<td >" + reason + "</td>" +
-                                    //     "<td >" + info[i].address + "</td>" +
-                                    //     "</tr>";
-                                // }
+                                });
                             },
                             error: function(xhr, type, errorThrown) {
                                 alert('发生错误！');

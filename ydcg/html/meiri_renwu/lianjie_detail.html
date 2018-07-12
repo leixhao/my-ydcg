@@ -233,9 +233,30 @@
 											alert("发生错误了,请检查你的网络!");
 										}
 									})
-
 								}
-
+							});
+							$(".table tbody").on('click','.ischong',function(e){
+                                e.stopPropagation();
+                                e.preventDefault();
+                                var prId = $(this).attr("data-prId");
+                                console.log(prId);
+                                $.ajax({
+									url:config.rootUrl + "user/checkRepeat.do",
+									data:{
+									    prId:prId,
+										page:"1",
+										rows:"10"
+									},
+									async:true,
+									type:"post",
+									success:function(data){
+									    console.log(data);
+									    var info = data.info;
+									    if(data.totalCount>1){
+											window.location.href = "./lianjie_chongfu.html?prId="+prId;
+										}
+									}
+								})
 							});
 
 							$("body").mLoading("show");
@@ -264,6 +285,7 @@
 									for(var i = 0; i < info.length; i++) {
 									    if(session_login.info.roleId!="4"){
 									        var deleBtn=" <button  class='btn btn-danger delrow' type='button' data-prId='" + info[i].prId + "'><i class='fa fa-trash-o'> 删除链接 </i></button>";
+									        var isC = "<button  class='btn btn-primary ischong' type='button' data-prId='" + info[i].prId + "'><i class='fa fa-search-minus'> 检查重复 </i></button>";
 										}else{
                                             var deleBtn="";
 										}
@@ -272,6 +294,7 @@
 											"<td class='goDetail'><a href='" + info[i].prUrl + "' target='_blank'>" + info[i].prUrl + "</a></td>" +
 											"<td class='goDetail'>" + new Date(info[i].createTime).format('yyyy-MM-dd h:m:s') + "</td>" +
 											"<td class='goDetail'>" + deleBtn +"</td>" +
+											"<td class='goDetail'>" + isC +"</td>" +
 											"</tr>";
                                         _counter++;
 									}
