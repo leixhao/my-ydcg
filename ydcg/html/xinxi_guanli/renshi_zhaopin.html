@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../../lib/css/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../lib/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../../lib/css/jquery.mloading.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/dropzone.min.css">
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
     <link rel="stylesheet" type="text/css" href="../../css/themes/flat-blue.css">
@@ -131,7 +132,7 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">招聘信息添加</span>
+                    <span class="title">员工信息添加</span>
                     <!--<div class="description">请输入正确<span class="tips">职位、学历、来源意向、信息来源、</span>以及准确的<span class="tips">信息来源</span>,添加截图<span class="tips">第一张必须传!!!</span></div>-->
                 </div>
                 <div class="row">
@@ -139,13 +140,21 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <div class="title">招聘信息添加</div>
+                                    <div class="title">员工信息添加</div>
                                     <a class="btn btn-primary backBtn" onclick="window.history.go(-1)" style="display: none;">返回任务详情</a>
 
                                 </div>
                             </div>
                             <div class="card-body">
                                 <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">头像(<span style="color:red">*必填项</span>)</label>
+                                        <div class="dropzone" id="myDropzone">
+                                            <div class="am-text-success dz-message">
+                                                <span class="tips">将图片或文件夹拖拽到此处<br>或点此打开文件管理器选择图片</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="name" class="col-sm-2 control-label">真实姓名</label>
                                         <div class="col-sm-10">
@@ -256,18 +265,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="detailAddress" class="col-sm-2 control-label">详细地址</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" id="detailAddress" class="form-control" placeholder="请输入详细地址">
-                                        </div>
-                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="detailAddress" class="col-sm-2 control-label">详细地址</label>-->
+                                        <!--<div class="col-sm-10">-->
+                                            <!--<input type="text" id="detailAddress" class="form-control" placeholder="请输入详细地址">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                     <div class="form-group">
                                         <label for="sourcesBox" class="col-sm-2 control-label">招聘渠道</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i>*</i></span>
                                             <div>
-                                                <select id="sourcesBox" style="width:30%" title="信息来源" aria-describedby="">
+                                                <select id="sourcesBox" style="width:30%" title="招聘渠道" aria-describedby="">
                                                     <optgroup label="请选择信息来源" class="sourcesBox">
                                                     </optgroup>
                                                 </select>
@@ -276,73 +285,126 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label for="addTime" class="col-sm-2 control-label">入职日期</label>
+                                        <div class="col-sm-3">
+                                            <input type="date" id="addTime" class="form-control">
+                                        </div>
+                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="zhanqu" class="col-sm-2 control-label">入职战区</label>-->
+                                        <!--<div class="col-sm-3">-->
+                                            <!--<select id="zhanqu" style="width:100%" title="战区" aria-describedby="basic-addon1">-->
+                                                <!--<optgroup label="请输入战区">-->
+                                                <!--</optgroup>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="zhanqu" class="col-sm-2 control-label">级别</label>-->
+                                        <!--<div class="col-sm-3">-->
+                                            <!--<select id="jibie" style="width:100%" title="级别" aria-describedby="basic-addon1">-->
+                                                <!--<optgroup label="请输入级别">-->
+                                                    <!--<option value="0">组员</option>-->
+                                                    <!--<option value="1">科长</option>-->
+                                                    <!--<option value="2">战区经理</option>-->
+                                                    <!--<option value="3">副总经理</option>-->
+                                                    <!--<option value="4">总经理</option>-->
+                                                <!--</optgroup>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <div class="form-group">
                                         <label for="phone" class="col-sm-2 control-label">联系电话</label>
                                         <div class="col-sm-10">
                                             <input type="number" id="phone" class="form-control" placeholder="请输入联系电话">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="phone" class="col-sm-2 control-label">招聘人</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" id="recruiter" class="form-control" placeholder="招聘人">
-                                        </div>
-                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="phone" class="col-sm-2 control-label">招聘人</label>-->
+                                        <!--<div class="col-sm-10">-->
+                                            <!--<input type="text" id="recruiter" class="form-control" placeholder="招聘人">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="supplement" class="col-sm-2 control-label">人事第一印象</label>-->
+                                        <!--<div class="col-sm-10">-->
+                                            <!--<textarea class="form-control" id="impression" placeholder="人事第一印象" rows="3"></textarea>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                     <div class="form-group">
                                         <label for="supplement" class="col-sm-2 control-label">备注</label>
                                         <div class="col-sm-10">
                                             <textarea class="form-control" id="supplement" placeholder="请输入备注信息	" rows="3"></textarea>
                                         </div>
-
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">身份证照片(正反面)(<span style="color:red">*必填</span>)</label>
-                                        <div class="col-sm-10">
-                                            <div class="col-sm-3 col-xs-3  col-sm-offset-1 col-xs-offset-1">
-                                                <input type="file" name="f1" style="display: none;" />
-                                                <img src="../../img/addphoto.png" class="f1" style="width:100%;cursor: pointer;" />
-                                            </div>
-                                            <div class="col-sm-3 col-xs-3 ">
-                                                <input type="file" name="f2" style="display: none;" />
-                                                <img src="../../img/addphoto.png" style="width:100%;cursor: pointer;" class="f2" />
+                                        <label class="col-sm-2 control-label">身份证正面照片(<span style="color:red">*必填项</span>)</label>
+                                        <div class="dropzone" id="myDropzone1" style="width: 50%">
+                                            <div class="am-text-success dz-message">
+                                                <span class="tips" style="color: ">将图片或文件夹拖拽到此处<br>或点此打开文件管理器选择图片</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">简历照片(<span style="color:red">*必填</span>)</label>
-                                        <div class="col-sm-10">
-                                            <div class="col-sm-3 col-xs-3  col-sm-offset-1 col-xs-offset-1">
-                                                <input type="file" name="f3" style="display: none;" />
-                                                <img src="../../img/addphoto.png" class="f3" style="width:100%;cursor: pointer;" />
-                                            </div>
-                                            <div class="col-sm-3 col-xs-3 ">
-                                                <input type="file" name="f4" style="display: none;" />
-                                                <img src="../../img/addphoto.png" style="width:100%;cursor: pointer;" class="f4" />
+                                        <label class="col-sm-2 control-label">身份证反面照片(<span style="color:red">*必填项</span>)</label>
+                                        <div class="dropzone" id="myDropzone2" style="width: 50%">
+                                            <div class="am-text-success dz-message">
+                                                <span class="tips">将图片或文件夹拖拽到此处<br>或点此打开文件管理器选择图片</span>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">全身照片(<span style="color:red">*必填</span>)</label>
-                                        <div class="col-sm-10">
-                                            <div class="col-sm-3 col-xs-3  col-sm-offset-1 col-xs-offset-1">
-                                                <input type="file" name="f5" style="display: none;" />
-                                                <img src="../../img/addphoto.png" class="f5" style="width:100%;cursor: pointer;" />
-                                            </div>
-                                            <div class="col-sm-3 col-xs-3 ">
-                                                <input type="file" name="f6" style="display: none;" />
-                                                <img src="../../img/addphoto.png" style="width:100%;cursor: pointer;" class="f6" />
+                                        <label class="col-sm-2 control-label">简历照片(<span style="color:red">*必填项</span>)</label>
+                                        <div class="dropzone" id="myDropzone3">
+                                            <div class="am-text-success dz-message">
+                                                <span class="tips">将图片或文件夹拖拽到此处<br>或点此打开文件管理器选择图片</span>
                                             </div>
                                         </div>
-
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">全身照(<span style="color:red">*必填项</span>)</label>
+                                        <div class="dropzone" id="myDropzone4">
+                                            <div class="am-text-success dz-message">
+                                                <span class="tips">将图片或文件夹拖拽到此处<br>或点此打开文件管理器选择图片</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="col-sm-2 control-label">添加截图(<span style="color:red">*必填项</span>)</label>-->
+                                        <!--<div class="col-sm-10">-->
+                                            <!--<div class="col-sm-3 col-xs-3  col-sm-offset-1 col-xs-offset-1">-->
+                                                <!--<input type="file" name="f1" style="display: none;" />-->
+                                                <!--<img src="../../img/addphoto.png" class="f1" style="width:100%;cursor: pointer;" />-->
+                                            <!--</div>-->
+                                            <!--<div class="col-sm-3 col-xs-3 ">-->
+                                                <!--<input type="file" name="f2" style="display: none;" />-->
+                                                <!--<img src="../../img/addphoto.png" style="width:100%;cursor: pointer;" class="f2" />-->
+                                            <!--</div>-->
+                                            <!--<div class="col-sm-3 col-xs-3 ">-->
+                                                <!--<input type="file" name="f3" style="display: none;" />-->
+                                                <!--<img src="../../img/addphoto.png" style="width:100%;cursor: pointer;" class="f3" />-->
+                                            <!--</div>-->
+                                            <!--<div class="col-sm-3 col-xs-3  col-sm-offset-1 col-xs-offset-1">-->
+                                                <!--<input type="file" name="f4" style="display: none;" />-->
+                                                <!--<img src="../../img/addphoto.png" class="f4" style="width:100%;cursor: pointer;" />-->
+                                            <!--</div>-->
+                                            <!--<div class="col-sm-3 col-xs-3 ">-->
+                                                <!--<input type="file" name="f5" style="display: none;" />-->
+                                                <!--<img src="../../img/addphoto.png" style="width:100%;cursor: pointer;" class="f5" />-->
+                                            <!--</div>-->
+                                            <!--<div class="col-sm-3 col-xs-3 ">-->
+                                                <!--<input type="file" name="f6" style="display: none;" />-->
+                                                <!--<img src="../../img/addphoto.png" style="width:100%;cursor: pointer;" class="f6" />-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">保存</label>
                                         <div class="col-sm-10">
                                             <button type="button" class="btn btn-primary btn-lg save" style="width:100%">保存信息</button>
                                         </div>
-
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -384,6 +446,7 @@
         <script type="text/javascript" src="../../lib/js/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript" src="../../lib/js/select2.full.min.js"></script>
         <script type="text/javascript" src="../../lib/js/jquery.mloading.js"></script>
+        <script src="../../lib/js/dropzone.min.js"></script>
         <!-- Javascript -->
         <script src="../../js/address.js"></script>
         <script type="text/javascript" src="../../js/app.js"></script>
@@ -396,15 +459,292 @@
         <script type="text/javascript" src="../../js/personal_msg.js"></script>
 
         <script type="text/javascript">
-
-            $(function() {
-                var search = window.location.search;
-                if(search != "") {
-                    if(window.location.search.split("tdId=")[1]) {
-                        var tdId = window.location.search.split("tdId=")[1].split("&")[0];
-                        $(".backBtn").css("display", "block");
+            Dropzone.autoDiscover = false;
+            var images_url = "";
+            var myDropzone = new Dropzone("#myDropzone", {
+                url: config.rootUrl + "user/upInfoImage.do",
+                data:{
+                    deviceToken: "html5",
+                    deviceType: "html5",
+                    // userId: session_login.info.userId,
+                },
+                addRemoveLinks: true,
+                method: 'post',
+                autoProcessQueue: true,
+                acceptedFiles: "image/*",
+                filesizeBase: 1024,
+                maxFilesize: 2,
+                maxFiles:1,
+                uploadMultiple:false,
+                parallelUploads: 1,//一次上传的文件数量
+                maxThumbnailFilesize: 2,
+                dictCancelUpload: "取消上传",
+                dictCancelUploadConfirmation: "取消上传",
+                dictInvalidFileType: "包含非图片文件",
+                dictFileTooBig: "图片不能超出2M",
+                dictRemoveFile: "删除",
+                dictDefaultMessage: "将图片拖拽到此处\n或点此打开文件管理器选择文件",
+                dictFallbackMessage: "浏览器不支持拖拽,换个浏览器试试,推荐谷歌,火狐浏览器!",
+                sending: function(file, xhr, formData) {
+                    formData.append("filesize", file.size);
+                },
+                successmultiple:function (fs) {
+                    console.log(fs);
+                },
+                success: function(file, response, e) {
+                    if(response.code != "1") {
+                        $(file.previewTemplate).children('.dz-error-mark').css('opacity', '1');
+                        alert(response.msg);
+                    }
+                    images_url=response.absolutePath;
+                    console.log(images_url);
+                },
+                error: function(file, errorMessage, xhr) {
+                    alert(errorMessage);
+                },
+            });
+            //移除图片
+            myDropzone.on("removedfile", function(file) {
+                console.log(file.name);
+                for(i = 0; i < images_url.length; i++) {
+                    if(images_url[i].name == file.name) {
+                        images_url.remove(i);
                     }
                 }
+            });
+        </script>
+        <script type="text/javascript">
+            Dropzone.autoDiscover = false;
+            var images_url1 = "";
+            var myDropzone = new Dropzone("#myDropzone1", {
+                url: config.rootUrl + "user/upInfoImage.do",
+                data:{
+                    deviceToken: "html5",
+                    deviceType: "html5",
+                    // userId: session_login.info.userId,
+                },
+                addRemoveLinks: true,
+                method: 'post',
+                autoProcessQueue: true,
+                acceptedFiles: "image/*",
+                filesizeBase: 1024,
+                maxFilesize: 2,
+                maxFiles:1,
+                uploadMultiple:false,
+                parallelUploads: 1,//一次上传的文件数量
+                maxThumbnailFilesize: 2,
+                dictCancelUpload: "取消上传",
+                dictCancelUploadConfirmation: "取消上传",
+                dictInvalidFileType: "包含非图片文件",
+                dictFileTooBig: "图片不能超出2M",
+                dictRemoveFile: "删除",
+                dictDefaultMessage: "将图片拖拽到此处\n或点此打开文件管理器选择文件",
+                dictFallbackMessage: "浏览器不支持拖拽,换个浏览器试试,推荐谷歌,火狐浏览器!",
+                sending: function(file, xhr, formData) {
+                    formData.append("filesize", file.size);
+                },
+                successmultiple:function (fs) {
+                    console.log(fs);
+                },
+                success: function(file, response, e) {
+                    if(response.code != "1") {
+                        $(file.previewTemplate).children('.dz-error-mark').css('opacity', '1');
+                        alert(response.msg);
+                    }
+                    images_url1 = response.absolutePath;
+                    console.log(images_url1);
+                },
+                error: function(file, errorMessage, xhr) {
+                    alert(errorMessage);
+                },
+            });
+            //移除图片
+            myDropzone.on("removedfile", function(file) {
+                console.log(file.name);
+                for(i = 0; i < images_url1.length; i++) {
+                    if(images_url1[i].name == file.name) {
+                        images_url1.remove(i);
+                    }
+                }
+            });
+        </script>
+        <script type="text/javascript">
+            Dropzone.autoDiscover = false;
+            var images_url2 = "" ;
+            var myDropzone = new Dropzone("#myDropzone2", {
+                url: config.rootUrl + "user/upInfoImage.do",
+                data:{
+                    deviceToken: "html5",
+                    deviceType: "html5",
+                    // userId: session_login.info.userId,
+                },
+                addRemoveLinks: true,
+                method: 'post',
+                autoProcessQueue: true,
+                acceptedFiles: "image/*",
+                filesizeBase: 1024,
+                maxFilesize: 2,
+                maxFiles:1,
+                uploadMultiple:false,
+                parallelUploads: 1,//一次上传的文件数量
+                maxThumbnailFilesize: 2,
+                dictCancelUpload: "取消上传",
+                dictCancelUploadConfirmation: "取消上传",
+                dictInvalidFileType: "包含非图片文件",
+                dictFileTooBig: "图片不能超出2M",
+                dictRemoveFile: "删除",
+                dictDefaultMessage: "将图片拖拽到此处\n或点此打开文件管理器选择文件",
+                dictFallbackMessage: "浏览器不支持拖拽,换个浏览器试试,推荐谷歌,火狐浏览器!",
+                sending: function(file, xhr, formData) {
+                    formData.append("filesize", file.size);
+                },
+                successmultiple:function (fs) {
+                    console.log(fs);
+                },
+                success: function(file, response, e) {
+                    if(response.code != "1") {
+                        $(file.previewTemplate).children('.dz-error-mark').css('opacity', '1');
+                        alert(response.msg);
+                    }
+                    images_url2 = response.absolutePath;
+                    console.log(images_url2);
+                },
+                error: function(file, errorMessage, xhr) {
+                    alert(errorMessage);
+                },
+            });
+            //移除图片
+            myDropzone.on("removedfile", function(file) {
+                console.log(file.name);
+                for(i = 0; i < images_url2.length; i++) {
+                    if(images_url2[i].name == file.name) {
+                        images_url2.remove(i);
+                    }
+                }
+            });
+        </script>
+        <script type="text/javascript">
+            Dropzone.autoDiscover = false;
+            var images_url3="";
+            var myDropzone = new Dropzone("#myDropzone3", {
+                url: config.rootUrl + "user/upInfoImage.do",
+                data:{
+                    deviceToken: "html5",
+                    deviceType: "html5",
+                    // userId: session_login.info.userId,
+                },
+                addRemoveLinks: true,
+                method: 'post',
+                autoProcessQueue: true,
+                acceptedFiles: "image/*",
+                filesizeBase: 1024,
+                maxFilesize: 2,
+                maxFiles:2,
+                uploadMultiple:false,
+                parallelUploads: 1,//一次上传的文件数量
+                maxThumbnailFilesize: 2,
+                dictCancelUpload: "取消上传",
+                dictCancelUploadConfirmation: "取消上传",
+                dictInvalidFileType: "包含非图片文件",
+                dictFileTooBig: "图片不能超出2M",
+                dictRemoveFile: "删除",
+                dictDefaultMessage: "将图片拖拽到此处\n或点此打开文件管理器选择文件",
+                dictFallbackMessage: "浏览器不支持拖拽,换个浏览器试试,推荐谷歌,火狐浏览器!",
+                sending: function(file, xhr, formData) {
+                    formData.append("filesize", file.size);
+                },
+                successmultiple:function (fs) {
+                    console.log(fs);
+                },
+                success: function(file, response, e) {
+                    if(response.code != "1") {
+                        $(file.previewTemplate).children('.dz-error-mark').css('opacity', '1');
+                        alert(response.msg);
+                    }
+                    images_url3 += response.absolutePath + ";";
+                    console.log(images_url3);
+                },
+                error: function(file, errorMessage, xhr) {
+                    alert(errorMessage);
+                },
+            });
+            //移除图片
+            myDropzone.on("removedfile", function(file) {
+                console.log(file.name);
+                for(i = 0; i < images_url3.length; i++) {
+                    if(images_url3[i].name == file.name) {
+                        images_url3.remove(i);
+                    }
+                }
+            });
+        </script>
+        <script type="text/javascript">
+            Dropzone.autoDiscover = false;
+            var images_url4="";
+            var myDropzone = new Dropzone("#myDropzone4", {
+                url: config.rootUrl + "user/upInfoImage.do",
+                data:{
+                    deviceToken: "html5",
+                    deviceType: "html5",
+                    // userId: session_login.info.userId,
+                },
+                addRemoveLinks: true,
+                method: 'post',
+                autoProcessQueue: true,
+                acceptedFiles: "image/*",
+                filesizeBase: 1024,
+                maxFilesize: 2,
+                maxFiles:1,
+                uploadMultiple:false,
+                parallelUploads: 1,//一次上传的文件数量
+                maxThumbnailFilesize: 2,
+                dictCancelUpload: "取消上传",
+                dictCancelUploadConfirmation: "取消上传",
+                dictInvalidFileType: "包含非图片文件",
+                dictFileTooBig: "图片不能超出2M",
+                dictRemoveFile: "删除",
+                dictDefaultMessage: "将图片拖拽到此处\n或点此打开文件管理器选择文件",
+                dictFallbackMessage: "浏览器不支持拖拽,换个浏览器试试,推荐谷歌,火狐浏览器!",
+                sending: function(file, xhr, formData) {
+                    formData.append("filesize", file.size);
+                },
+                successmultiple:function (fs) {
+                    console.log(fs);
+                },
+                success: function(file, response, e) {
+                    if(response.code != "1") {
+                        $(file.previewTemplate).children('.dz-error-mark').css('opacity', '1');
+                        alert(response.msg);
+                    }
+                    images_url4 = response.absolutePath;
+                    console.log(images_url4);
+                },
+                error: function(file, errorMessage, xhr) {
+                    alert(errorMessage);
+                },
+            });
+            //移除图片
+            myDropzone.on("removedfile", function(file) {
+                console.log(file.name);
+                for(i = 0; i < images_url4.length; i++) {
+                    if(images_url4[i].name == file.name) {
+                        images_url4.remove(i);
+                    }
+                }
+            });
+        </script>
+        <script type="text/javascript">
+
+            $(function() {
+                if(session_login.info.roleId==3||session_login.info.userName=="scss31418"||session_login.info.userName=="scss31376"){
+                    $(".card-title")[0].innerHTML+="<button class='btn btn-success look_list'>查看人员列表</button>"
+                }
+                $(".look_list").on("click",function(e){
+                    e.stopPropagation();
+                    e.preventDefault();
+                    window.location.href = "./renyuan_xinxi_detail.html";
+                });
+
                 //三级联动省市区选择框
                 var html = "";
                 $("#input_city").append(html);
@@ -447,207 +787,252 @@
                 });
                 //三级联动结束
 
+                //获取战区
+                $.ajax({
+                    url: config.rootUrl + "user/getListTeam.do",
+                    data: {
+                        deviceToken: "html5",
+                        deviceType: "html5",
+                        userId: session_login.info.userId,
+                        page: 1,
+                        rows: "200",
+                    },
+                    async: true,
+                    type: "post",
+                    success: function(data) {
+                        console.log(data);
+                        var zhanqu = $("#zhanqu");
+                        console.log(zhanqu);
+                        //添加选项内容
+                        var info = data.info;
+                        for(var i in info) {
+                            var _option = document.createElement("option");
+                            _option.value = info[i].teamId;
+                            _option.text = info[i].teamName;
+                            zhanqu.append(_option);
+                        }
+                    },
+                    error: function() {
+                        alert("网络错误");
+                    },
+                    complete:function(){
+                        $("body").mLoading("hide");
+                    }
+                });
+
+                $("#zhanqu").select2({
+                    placeholder: "请选择战区"
+                });
+
                 //图片获取上传开始
-                $(".f1").on("click", function(e) {
-                    e.preventDefault();
-                    $("input:file[name=f1]").trigger("click");
-                });
-                $(".f2").on("click", function(e) {
-                    e.preventDefault();
-                    $("input:file[name=f2]").trigger("click");
-                });
-                $(".f3").on("click", function(e) {
-                    e.preventDefault();
-                    $("input:file[name=f3]").trigger("click");
-                });
-                $(".f4").on("click", function(e) {
-                    e.preventDefault();
-                    $("input:file[name=f4]").trigger("click");
-                });
-                $(".f5").on("click", function(e) {
-                    e.preventDefault();
-                    $("input:file[name=f5]").trigger("click");
-                });
-                $(".f6").on("click", function(e) {
-                    e.preventDefault();
-                    $("input:file[name=f6]").trigger("click");
-                });
-                var input1 = $("input:file[name=f1]")[0]; //获取选择图片的input元素
-                //这边是判断本浏览器是否支持这个API。
-                if(typeof FileReader === 'undefined') {
-                    alert("浏览器版本过低，请先更新您的浏览器~");
-                    input1.setAttribute('disabled', 'disabled');
-                } else {
-                    input1.addEventListener('change', readFile1, false);
-                    //如果支持就监听改变事件，一旦改变了就运行readFile函数。
-                }
-                var input2 = $("input:file[name=f2]")[0]; //获取选择图片的input元素
-                //这边是判断本浏览器是否支持这个API。
-                if(typeof FileReader === 'undefined') {
-                    alert("浏览器版本过低，请先更新您的浏览器~");
-                    input2.setAttribute('disabled', 'disabled');
-                } else {
-                    input2.addEventListener('change', readFile2, false);
-                    //如果支持就监听改变事件，一旦改变了就运行readFile函数。
-                }
-                var input3 = $("input:file[name=f3]")[0]; //获取选择图片的input元素
-                //这边是判断本浏览器是否支持这个API。
-                if(typeof FileReader === 'undefined') {
-                    alert("浏览器版本过低，请先更新您的浏览器~");
-                    input3.setAttribute('disabled', 'disabled');
-                } else {
-                    input3.addEventListener('change', readFile3, false);
-                    //如果支持就监听改变事件，一旦改变了就运行readFile函数。
-                }
-                var input4 = $("input:file[name=f4]")[0]; //获取选择图片的input元素
-                //这边是判断本浏览器是否支持这个API。
-                if(typeof FileReader === 'undefined') {
-                    alert("浏览器版本过低，请先更新您的浏览器~");
-                    input4.setAttribute('disabled', 'disabled');
-                } else {
-                    input4.addEventListener('change', readFile4, false);
-                    //如果支持就监听改变事件，一旦改变了就运行readFile函数。
-                }
-                var input5 = $("input:file[name=f5]")[0]; //获取选择图片的input元素
-                //这边是判断本浏览器是否支持这个API。
-                if(typeof FileReader === 'undefined') {
-                    alert("浏览器版本过低，请先更新您的浏览器~");
-                    input5.setAttribute('disabled', 'disabled');
-                } else {
-                    input5.addEventListener('change', readFile5, false);
-                    //如果支持就监听改变事件，一旦改变了就运行readFile函数。
-                }
-                var input6 = $("input:file[name=f6]")[0]; //获取选择图片的input元素
-                //这边是判断本浏览器是否支持这个API。
-                if(typeof FileReader === 'undefined') {
-                    alert("浏览器版本过低，请先更新您的浏览器~");
-                    input6.setAttribute('disabled', 'disabled');
-                } else {
-                    input6.addEventListener('change', readFile6, false);
-                    //如果支持就监听改变事件，一旦改变了就运行readFile函数。
-                }
-
-                function readFile1() {
-
-                    $("body").mLoading("show");//显示loading组件
-
-                    var file = this.files[0]; //获取file对象
-                    //判断file的类型是不是图片类型。
-                    if(!/image\/\w+/.test(file.type)) {
-                        alert("请上传一张图片~");
-                        return false;
-                    }
-                    var reader = new FileReader(); //声明一个FileReader实例
-                    reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
-                    //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
-                    reader.onload = function(e) {
-
-                        $("body").mLoading("hide");//关闭loading组件
-
-                        $(".f1").attr("src", this.result);
-                        $(".f1").attr("data-src", this.result);
-                    }
-                }
-
-                function readFile2() {
-                    $("body").mLoading("show");//显示loading组件
-                    var file = this.files[0]; //获取file对象
-                    //判断file的类型是不是图片类型。
-                    if(!/image\/\w+/.test(file.type)) {
-                        alert("请上传一张图片~");
-                        return false;
-                    }
-                    var reader = new FileReader(); //声明一个FileReader实例
-                    reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
-                    //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
-                    reader.onload = function(e) {
-                        $("body").mLoading("hide");//关闭loading组件
-                        // 创建一个新增的图片和文字input
-                        $(".f2").attr("src", this.result);
-                        $(".f2").attr("data-src", this.result);
-
-                    }
-                }
-
-                function readFile3() {
-                    $("body").mLoading("show");//显示loading组件
-
-                    var file = this.files[0]; //获取file对象
-                    //判断file的类型是不是图片类型。
-                    if(!/image\/\w+/.test(file.type)) {
-                        alert("请上传一张图片~");
-                        return false;
-                    }
-                    var reader = new FileReader(); //声明一个FileReader实例
-                    reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
-                    //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
-                    reader.onload = function(e) {
-                        $("body").mLoading("hide");//关闭loading组件
-                        // 创建一个新增的图片和文字input
-                        $(".f3").attr("src", this.result);
-                        $(".f3").attr("data-src", this.result);
-                    }
-                }
-
-                function readFile4() {
-                    $("body").mLoading("show");//显示loading组件
-
-                    var file = this.files[0]; //获取file对象
-                    //判断file的类型是不是图片类型。
-                    if(!/image\/\w+/.test(file.type)) {
-                        alert("请上传一张图片~");
-                        return false;
-                    }
-                    var reader = new FileReader(); //声明一个FileReader实例
-                    reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
-                    //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
-                    reader.onload = function(e) {
-                        $("body").mLoading("hide");//关闭loading组件
-                        // 创建一个新增的图片和文字input
-                        $(".f4").attr("src", this.result);
-                        $(".f4").attr("data-src", this.result);
-                    }
-                }
-
-                function readFile5() {
-                    $("body").mLoading("show");//显示loading组件
-
-                    var file = this.files[0]; //获取file对象
-                    //判断file的类型是不是图片类型。
-                    if(!/image\/\w+/.test(file.type)) {
-                        alert("请上传一张图片~");
-                        return false;
-                    }
-                    var reader = new FileReader(); //声明一个FileReader实例
-                    reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
-                    //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
-                    reader.onload = function(e) {
-                        $("body").mLoading("hide");//关闭loading组件
-                        // 创建一个新增的图片和文字input
-                        $(".f5").attr("src", this.result);
-                        $(".f5").attr("data-src", this.result);
-                    }
-                }
-
-                function readFile6() {
-                    $("body").mLoading("show");//显示loading组件
-
-                    var file = this.files[0]; //获取file对象
-                    //判断file的类型是不是图片类型。
-                    if(!/image\/\w+/.test(file.type)) {
-                        alert("请上传一张图片~");
-                        return false;
-                    }
-                    var reader = new FileReader(); //声明一个FileReader实例
-                    reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
-                    //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
-                    reader.onload = function(e) {
-                        $("body").mLoading("hide");//关闭loading组件
-                        // 创建一个新增的图片和文字input
-                        $(".f6").attr("src", this.result);
-                        $(".f6").attr("data-src", this.result);
-                    }
-                }
+                // $(".f1").on("click", function(e) {
+                //     e.preventDefault();
+                //     $("input:file[name=f1]").trigger("click");
+                // });
+                // $(".f2").on("click", function(e) {
+                //     e.preventDefault();
+                //     $("input:file[name=f2]").trigger("click");
+                // });
+                // $(".f3").on("click", function(e) {
+                //     e.preventDefault();
+                //     $("input:file[name=f3]").trigger("click");
+                // })
+                // $(".f4").on("click", function(e) {
+                //     e.preventDefault();
+                //     $("input:file[name=f4]").trigger("click");
+                // })
+                // $(".f5").on("click", function(e) {
+                //     e.preventDefault();
+                //     $("input:file[name=f5]").trigger("click");
+                // })
+                // $(".f6").on("click", function(e) {
+                //     e.preventDefault();
+                //     $("input:file[name=f6]").trigger("click");
+                // })
+                // $(".f7").on("click", function(e) {
+                //     e.preventDefault();
+                //     $("input:file[name=f7]").trigger("click");
+                // })
+                // var input1 = $("input:file[name=f1]")[0]; //获取选择图片的input元素
+                // //这边是判断本浏览器是否支持这个API。
+                // if(typeof FileReader === 'undefined') {
+                //     alert("浏览器版本过低，请先更新您的浏览器~");
+                //     input1.setAttribute('disabled', 'disabled');
+                // } else {
+                //     input1.addEventListener('change', readFile1, false);
+                //     //如果支持就监听改变事件，一旦改变了就运行readFile函数。
+                // }
+                // var input2 = $("input:file[name=f2]")[0]; //获取选择图片的input元素
+                // //这边是判断本浏览器是否支持这个API。
+                // if(typeof FileReader === 'undefined') {
+                //     alert("浏览器版本过低，请先更新您的浏览器~");
+                //     input2.setAttribute('disabled', 'disabled');
+                // } else {
+                //     input2.addEventListener('change', readFile2, false);
+                //     //如果支持就监听改变事件，一旦改变了就运行readFile函数。
+                // }
+                // var input3 = $("input:file[name=f3]")[0]; //获取选择图片的input元素
+                // //这边是判断本浏览器是否支持这个API。
+                // if(typeof FileReader === 'undefined') {
+                //     alert("浏览器版本过低，请先更新您的浏览器~");
+                //     input3.setAttribute('disabled', 'disabled');
+                // } else {
+                //     input3.addEventListener('change', readFile3, false);
+                //     //如果支持就监听改变事件，一旦改变了就运行readFile函数。
+                // }
+                // var input4 = $("input:file[name=f4]")[0]; //获取选择图片的input元素
+                // //这边是判断本浏览器是否支持这个API。
+                // if(typeof FileReader === 'undefined') {
+                //     alert("浏览器版本过低，请先更新您的浏览器~");
+                //     input4.setAttribute('disabled', 'disabled');
+                // } else {
+                //     input4.addEventListener('change', readFile4, false);
+                //     //如果支持就监听改变事件，一旦改变了就运行readFile函数。
+                // }
+                // var input5 = $("input:file[name=f5]")[0]; //获取选择图片的input元素
+                // //这边是判断本浏览器是否支持这个API。
+                // if(typeof FileReader === 'undefined') {
+                //     alert("浏览器版本过低，请先更新您的浏览器~");
+                //     input5.setAttribute('disabled', 'disabled');
+                // } else {
+                //     input5.addEventListener('change', readFile5, false);
+                //     //如果支持就监听改变事件，一旦改变了就运行readFile函数。
+                // }
+                // var input6 = $("input:file[name=f6]")[0]; //获取选择图片的input元素
+                // //这边是判断本浏览器是否支持这个API。
+                // if(typeof FileReader === 'undefined') {
+                //     alert("浏览器版本过低，请先更新您的浏览器~");
+                //     input6.setAttribute('disabled', 'disabled');
+                // } else {
+                //     input6.addEventListener('change', readFile6, false);
+                //     //如果支持就监听改变事件，一旦改变了就运行readFile函数。
+                // }
+                //
+                // function readFile1() {
+                //
+                //     $("body").mLoading("show");//显示loading组件
+                //
+                //     var file = this.files[0]; //获取file对象
+                //     //判断file的类型是不是图片类型。
+                //     if(!/image\/\w+/.test(file.type)) {
+                //         alert("请上传一张图片~");
+                //         return false;
+                //     }
+                //     var reader = new FileReader(); //声明一个FileReader实例
+                //     reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
+                //     //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
+                //     reader.onload = function(e) {
+                //
+                //         $("body").mLoading("hide");//关闭loading组件
+                //
+                //         $(".f1").attr("src", this.result);
+                //         $(".f1").attr("data-src", this.result);
+                //     }
+                // }
+                //
+                // function readFile2() {
+                //     $("body").mLoading("show");//显示loading组件
+                //     var file = this.files[0]; //获取file对象
+                //     //判断file的类型是不是图片类型。
+                //     if(!/image\/\w+/.test(file.type)) {
+                //         alert("请上传一张图片~");
+                //         return false;
+                //     }
+                //     var reader = new FileReader(); //声明一个FileReader实例
+                //     reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
+                //     //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
+                //     reader.onload = function(e) {
+                //         $("body").mLoading("hide");//关闭loading组件
+                //         // 创建一个新增的图片和文字input
+                //         $(".f2").attr("src", this.result);
+                //         $(".f2").attr("data-src", this.result);
+                //
+                //     }
+                // }
+                //
+                // function readFile3() {
+                //     $("body").mLoading("show");//显示loading组件
+                //
+                //     var file = this.files[0]; //获取file对象
+                //     //判断file的类型是不是图片类型。
+                //     if(!/image\/\w+/.test(file.type)) {
+                //         alert("请上传一张图片~");
+                //         return false;
+                //     }
+                //     var reader = new FileReader(); //声明一个FileReader实例
+                //     reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
+                //     //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
+                //     reader.onload = function(e) {
+                //         $("body").mLoading("hide");//关闭loading组件
+                //         // 创建一个新增的图片和文字input
+                //         $(".f3").attr("src", this.result);
+                //         $(".f3").attr("data-src", this.result);
+                //
+                //     }
+                // }
+                //
+                // function readFile4() {
+                //     $("body").mLoading("show");//显示loading组件
+                //
+                //     var file = this.files[0]; //获取file对象
+                //     //判断file的类型是不是图片类型。
+                //     if(!/image\/\w+/.test(file.type)) {
+                //         alert("请上传一张图片~");
+                //         return false;
+                //     }
+                //     var reader = new FileReader(); //声明一个FileReader实例
+                //     reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
+                //     //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
+                //     reader.onload = function(e) {
+                //         $("body").mLoading("hide");//关闭loading组件
+                //         // 创建一个新增的图片和文字input
+                //         $(".f4").attr("src", this.result);
+                //         $(".f4").attr("data-src", this.result);
+                //
+                //     }
+                // }
+                //
+                // function readFile5() {
+                //     $("body").mLoading("show");//显示loading组件
+                //
+                //     var file = this.files[0]; //获取file对象
+                //     //判断file的类型是不是图片类型。
+                //     if(!/image\/\w+/.test(file.type)) {
+                //         alert("请上传一张图片~");
+                //         return false;
+                //     }
+                //     var reader = new FileReader(); //声明一个FileReader实例
+                //     reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
+                //     //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
+                //     reader.onload = function(e) {
+                //         $("body").mLoading("hide");//关闭loading组件
+                //         // 创建一个新增的图片和文字input
+                //         $(".f5").attr("src", this.result);
+                //         $(".f5").attr("data-src", this.result);
+                //
+                //     }
+                // }
+                //
+                // function readFile6() {
+                //     $("body").mLoading("show");//显示loading组件
+                //
+                //     var file = this.files[0]; //获取file对象
+                //     //判断file的类型是不是图片类型。
+                //     if(!/image\/\w+/.test(file.type)) {
+                //         alert("请上传一张图片~");
+                //         return false;
+                //     }
+                //     var reader = new FileReader(); //声明一个FileReader实例
+                //     reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
+                //     //最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
+                //     reader.onload = function(e) {
+                //         $("body").mLoading("hide");//关闭loading组件
+                //         // 创建一个新增的图片和文字input
+                //         $(".f6").attr("src", this.result);
+                //         $(".f6").attr("data-src", this.result);
+                //
+                //     }
+                // }
                 //图片上传结束...
 
                 //获取基本信息开始...
@@ -680,11 +1065,16 @@
                         return segs;
                     }
                     $.ajax({
-                        url: config.rootUrl + "user/getBaseData.do",
-                        data: {},
-                        async: true,
-                        type: 'post',
-                        success: function(data) {
+                        url:config.rootUrl + "user/getCommonData.do",
+                        data:{
+                            deviceToken: "html5",
+                            deviceType: "html5",
+                            userId: session_login.info.userId,
+                            // verCode:"1"
+                        },
+                        async:true,
+                        type:"post",
+                        success:function(data){
                             console.log(data);
                             //添加选项盒子
                             var optgroupWorks = $(".optgroupWorks");
@@ -693,24 +1083,16 @@
                             var sourcesBox = $(".sourcesBox");
                             var diseasesBox = $(".diseasesBox");
                             //添加选项内容
-                            var works = data.works;
-                            var patRelations = data.patRelations;
-                            var educations = data.educations;
-                            var sources = data.sources;
+                            var works = data.sInfo;
+                            var educations = data.eInfo;
+                            var sources = data.rInfo;
                             var diseases = data.diseases;
                             //工作
                             for(var i in works) {
                                 var _option = document.createElement("option");
-                                _option.value = works[i].wId;
-                                _option.text = works[i].wName;
+                                _option.value = works[i].sId;
+                                _option.text = works[i].sName;
                                 optgroupWorks.append(_option);
-                            }
-                            //患者关系
-                            for(var i in patRelations) {
-                                var _option = document.createElement("option");
-                                _option.value = patRelations[i].prId;
-                                _option.text = patRelations[i].prName;
-                                optgroupRelations.append(_option);
                             }
                             //学历
                             for(var i in educations) {
@@ -722,28 +1104,26 @@
                             //信息来源
                             for(var i in sources) {
                                 var _option = document.createElement("option");
-                                _option.value = sources[i].sId;
-                                _option.text = sources[i].sName;
+                                _option.value = sources[i].rId;
+                                _option.text = sources[i].rName;
                                 sourcesBox.append(_option);
                             }
-                            //疾病名称
-                            for(var i in diseases) {
-                                var _option = document.createElement("option");
-                                _option.value = diseases[i].dId;
-                                _option.text = diseases[i].dName;
-                                diseasesBox.append(_option);
-                            }
-                        },
-                        error: function(xhr, type, errorThrown) {
-                            alert('网络异常，请稍后再试！');
-                        },
-                        complete: function() {
-                            $('select').select2();
                         }
-                    });
+                    })
                 })()
                 //获取基本信息开始...
 
+                $("#educationsBox").select2({
+                    placeholder: "请选择学历"
+                });
+
+                $("#works").select2({
+                    placeholder: "请选择专业"
+                });
+
+                $("#sourcesBox").select2({
+                    placeholder: "请选择招聘渠道"
+                });
                 //提交事件绑定
                 $(".save").on("click", function() {
 
@@ -764,14 +1144,21 @@
                                 return sexinput[i].value;
                             }
                         }
-                        alert("请勾选性别!");
-                        return;
+
                     }
                     //3(+)年龄:
                     var age = $("#age").val();
+                    if(age==""){
+                        alert("请填写年龄！");
+                        return
+                    }
 
                     //3:婚姻状况
                     var hunying = getMar();
+                    if(hunying==""){
+                        alert("请选择婚姻状况！");
+                        return
+                    }
 
                     function getMar() {
                         var input = $("input:radio[name=hunying]");
@@ -780,21 +1167,46 @@
                                 return input[i].value;
                             }
                         }
-                        //								alert("请选择患者婚姻状况!")
                     }
-                    console.log(hunying);
                     //5:职业
                     var works = $("#works").val();
+                    if(works==""){
+                        alert("请选择专业");
+                        return
+                    }
                     //6:学历
                     var educations = $("#educationsBox").val();
+                    if(educations==""){
+                        alert("请选择学历");
+                        return
+                    }
                     //7:身高
                     var height = $("#height").val();
+                    if(height==""){
+                        alert("请填写身高！");
+                        return;
+                    }
                     //8:体重
                     var weight = $("#weight").val();
+                    if(weight==""){
+                        alert("请填写体重!");
+                        return;
+                    }
+
+                    var date = $("#addTime").val();
+                    if(date==""){
+                        alert("请选择入职日期！");
+                        return;
+                    }
+
 
                     //11:电话号码
                     var phone = $("#phone").val();
                     isphone(phone);
+                    if(phone==""){
+                        alert("请填写手机号！");
+                        return;
+                    }
 
                     function isphone(inpurStr) {
                         if(phone.length == 0) {
@@ -812,7 +1224,7 @@
                             }
                         }
 
-                        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+                        var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1})|(19[0-9]{1}))+\d{8})$/;
                         if(!myreg.test(phone)) {
                             if(confirm('手机号码无效,确认继续保存?')) {
                                 return;
@@ -824,197 +1236,291 @@
                     }
                     //14:信息来源
                     var sources = $("#sourcesBox").val();
+                    if(sources==""){
+                        alert("请选择招聘渠道");
+                        return;
+                    }
+
                     //15:省份
                     var input_province = $("#input_province").val();
-                    /*if(input_province == "") {
+                    if(input_province == "") {
                         alert("务必选择省份信息!");
                         return;
-                    }*/
+                    }
                     //16:市
                     var input_city = $("#input_city").val();
-                    /*if(input_city == "") {
+                    if(input_city == "") {
                         alert("务必选择市信息!");
                         return;
-                    }*/
+                    }
                     //17:县/区
                     var input_area = $("#input_area").val();
-                    /*if(input_area == "") {
+                    if(input_area == "") {
                         alert("务必选择县/区信息!");
                         return;
-                    }*/
+                    }
                     //18:详细地址
                     var detailAddress = $("#detailAddress").val();
                     //22:备注
                     var supplement = $("#supplement").val();
 
-                    //图片上传
-                    var _img1_down = false;
-                    var _img2_down = false;
-                    var _img3_down = false;
-                    var _img4_down = false;
-                    var _img5_down = false;
-                    var _img6_down = false;
 
-                    //23:image1
-                    var image1;
-                    if($(".f1").attr("data-src")) {
-                        var dataSrc = $(".f1").attr("data-src");
-                        uploadImg(dataSrc, "image1");
+                    //级别
+                    var jibie = $("#jibie").val();
 
-                    } else {
-                        alert("必须添加第一张图");
+                    //人事第一印象
+                    // var impression = $("#impression").val();
+                    // if(impression == ""){
+                    //     alert("亲，人事第一印象未填写！");
+                    //     return
+                    // }
+
+                    if(images_url==""){
+                        alert("请选择头像！");
                         return;
                     }
-                    //24:image2
-                    var image2;
-                    if($(".f2").attr("data-src")) {
-                        uploadImg($(".f2").attr("data-src"), "image2");
-                    } else {
-                        image2 = "";
-                        _img2_down = true;
+                    if(images_url1==""){
+                        alert("身份证正面照片未选择！");
+                        return;
                     }
-                    //25:image3
-                    var image3;
-                    if($(".f3").attr("data-src")) {
-                        uploadImg($(".f3").attr("data-src"), "image3");
-                    } else {
-                        image3 = "";
-                        _img3_down = true;
+                    if(images_url2==""){
+                        alert("身份证反面照片未选择！");
+                        return;
                     }
-
-                    var image4;
-                    if($(".f4").attr("data-src")) {
-                        uploadImg($(".f4").attr("data-src"), "image4");
-                    } else {
-                        image4 = "";
-                        _img4_down = true;
+                    if(images_url3==""){
+                        alert("请至少上传一张简历照片");
+                        return;
+                    }
+                    if(images_url4==""){
+                        alert("请上传一张全身照片！");
+                        return;
                     }
 
-                    var image5;
-                    if($(".f5").attr("data-src")) {
-                        uploadImg($(".f5").attr("data-src"), "image5");
-                    } else {
-                        image5 = "";
-                        _img5_down = true;
-                    }
-
-                    var image6;
-                    if($(".f6").attr("data-src")) {
-                        uploadImg($(".f6").attr("data-src"), "image6");
-                    } else {
-                        image6 = "";
-                        _img6_down = true;
-                    }
-
-                    //上传图片
-                    function uploadImg(imgPath, ele) {
-                        $("body").mLoading("show");
-
-                        var image = new Image();
-                        image.src = imgPath;
-                        image.onload = function() {
-                            var imgData = getBase64Image(image);
-
-                            /*在这里调用上传接口*/
-                            $.ajax({
-                                url: config.rootUrl + "user/saveInfoImageUrl.do",
-                                data: {
-                                    headImage: imgData
-                                },
-                                async: true,
-                                type: 'post',
-                                success: function(data) {
-                                    switch(ele) {
-                                        case "image1":
-                                            _img1_down = true;
-                                            image1 = data.absolutePath;
-                                            break;
-                                        case "image2":
-                                            _img2_down = true;
-                                            image2 = data.absolutePath;
-                                            break;
-                                        case "image3":
-                                            _img3_down = true;
-                                            image3 = data.absolutePath;
-                                            break;
-                                        case "image4":
-                                            _img4_down = true;
-                                            image4 = data.absolutePath;
-                                            break;
-                                        case "image5":
-                                            _img5_down = true;
-                                            image5 = data.absolutePath;
-                                            break;
-                                        case "image6":
-                                            _img6_down = true;
-                                            image6 = data.absolutePath;
-                                            break;
-                                    }
-                                    if(_img1_down && _img2_down && _img3_down && _img4_down && _img5_down && _img6_down) {
-                                        //最后一步业绩提交
+                    //图片上传
+                    // var _img1_down = false;
+                    // var _img2_down = false;
+                    // var _img3_down = false;
+                    // var _img4_down = false;
+                    // var _img5_down = false;
+                    // var _img6_down = false;
+                    //
+                    // //23:image1
+                    // var image1;
+                    // if($(".f1").attr("data-src")) {
+                    //     uploadImg($(".f1").attr("data-src"), "image1");
+                    //
+                    // } else {
+                    //     alert("必须添加第一张图");
+                    //     return;
+                    // }
+                    // //24:image2
+                    // var image2;
+                    // if($(".f2").attr("data-src")) {
+                    //     uploadImg($(".f2").attr("data-src"), "image2");
+                    // } else {
+                    //     image2 = "";
+                    //     _img2_down = true;
+                    // }
+                    // //25:image3
+                    // var image3;
+                    // if($(".f3").attr("data-src")) {
+                    //     uploadImg($(".f3").attr("data-src"), "image3");
+                    // } else {
+                    //     image3 = "";
+                    //     _img3_down = true;
+                    // }
+                    // //25:image3
+                    // var image4;
+                    // if($(".f4").attr("data-src")) {
+                    //     uploadImg($(".f4").attr("data-src"), "image4");
+                    // } else {
+                    //     image4 = "";
+                    //     _img4_down = true;
+                    // }
+                    // //25:image3
+                    // var image5;
+                    // if($(".f5").attr("data-src")) {
+                    //     uploadImg($(".f5").attr("data-src"), "image5");
+                    // } else {
+                    //     image5 = "";
+                    //     _img5_down = true;
+                    // }
+                    // //25:image3
+                    // var image6;
+                    // if($(".f6").attr("data-src")) {
+                    //     uploadImg($(".f6").attr("data-src"), "image6");
+                    // } else {
+                    //     image6 = "";
+                    //     _img6_down = true;
+                    // }
+                    //
+                    // //上传图片
+                    // function uploadImg(imgPath, ele) {
+                    //     $("body").mLoading("show");
+                    //
+                    //     var image = new Image();
+                    //     image.src = imgPath;
+                    //     image.onload = function () {
+                    //         var imgData = getBase64Image(image);
+                    //
+                    //         /*在这里调用上传接口*/
+                    //         $.ajax({
+                    //             url: config.rootUrl + "user/saveImageUrl.do",
+                    //             data: {
+                    //                 headImage: imgData
+                    //             },
+                    //             async: true,
+                    //             type: 'post',
+                    //             success: function (data) {
+                    //                 switch (ele) {
+                    //                     case "image1":
+                    //                         _img1_down = true;
+                    //                         image1 = data.absolutePath;
+                    //                         break;
+                    //                     case "image2":
+                    //                         _img2_down = true;
+                    //                         image2 = data.absolutePath;
+                    //                         break;
+                    //                     case "image3":
+                    //                         _img3_down = true;
+                    //                         image3 = data.absolutePath;
+                    //                         break;
+                    //                     case "image4":
+                    //                         _img4_down = true;
+                    //                         image4 = data.absolutePath;
+                    //                         break;
+                    //                     case "image5":
+                    //                         _img5_down = true;
+                    //                         image5 = data.absolutePath;
+                    //                         break;
+                    //                     case "image6":
+                    //                         _img6_down = true;
+                    //                         image6 = data.absolutePath;
+                    //                         break;
+                    //                 }
+                    //                 if (_img1_down && _img2_down && _img3_down && _img4_down && _img5_down && _img6_down) {
+                    //                     //最后一步业绩提交
+                    //                     var resume = image4 + ";" + image5;
+                                        $("body").mLoading("show");
+                                        // $.ajax({
+                                        //     url: config.rootUrl + "user/addUserInfo.do",
+                                        //     data: {
+                                        //         deviceToken: "html5",
+                                        //         deviceType: "html5",
+                                        //         userId: session_login.info.userId,
+                                        //         realName: username || "不是不是",
+                                        //         headImage: image1,
+                                        //         phoneNo: phone || "15263102218",
+                                        //         //身份证正面
+                                        //         cardFront: image2,
+                                        //         //身份证反面
+                                        //         cardBack: image3,
+                                        //         //简历图片
+                                        //         resume: resume,
+                                        //         //全身照片
+                                        //         bodyImg: image6,
+                                        //         //入职日期
+                                        //         entryDate: date || "2018-07-14",
+                                        //         age: age || "18",
+                                        //         sex: sex || "0",
+                                        //         height: height || "180",
+                                        //         weight: weight || "60",
+                                        //         //婚否
+                                        //         mId: hunying || "6",
+                                        //         //学历
+                                        //         eId: educations || "6",
+                                        //         //专业
+                                        //         sId: works || "6",
+                                        //         //招聘来源
+                                        //         rId: sources || "6",
+                                        //
+                                        //         province: input_province || "北京",
+                                        //         city: input_city || "北京",
+                                        //         area: input_area || "昌平区",
+                                        //         detailAddress: detailAddress,
+                                        //         // supplement: supplement,
+                                        //         // tdId: tdId || "",
+                                        //     },
+                                        //     async: true,
+                                        //     type: 'post',
+                                        //     success: function (data) {
+                                        //         if (data.code == "1") {
+                                        //             alert("信息添加成功,等待战区经理审核!");
+                                        //             // window.location.reload();
+                                        //         } else {
+                                        //             alert(data.msg);
+                                        //         }
+                                        //     },
+                                        //     error: function (xhr, type, errorThrown) {
+                                        //         alert('网络异常，请稍后再试！');
+                                        //         console.log(xhr + errorThrown);
+                                        //     },
+                                        //     complete: function () {
+                                        //         $("body").mLoading("hide");
+                                        //     }
+                                        // });
                                         $.ajax({
-                                            url: config.rootUrl + "user/addAppointPatient.do",
+                                            url: config.rootUrl + "user/addUserInfo.do",
                                             data: {
                                                 deviceToken: "html5",
                                                 deviceType: "html5",
                                                 userId: session_login.info.userId,
-
-                                                // dId: diseases,
-                                                sId: sources,
-                                                mId: hunying,
-                                                eId: educations,
-                                                wId: works,
-                                                // intention: yixiang,
-                                                // prId: relation,
-                                                patientPhone: phone,
-                                                patientName: username,
+                                                realName: username,
+                                                headImage: images_url,
+                                                phoneNo: phone,
+                                                //身份证正面
+                                                cardFront: images_url1,
+                                                //身份证反面
+                                                cardBack: images_url2,
+                                                //简历图片
+                                                resume: images_url3,
+                                                //全身照片
+                                                bodyImg: images_url4,
+                                                //入职日期
+                                                entryDate: date,
+                                                age: age,
                                                 sex: sex,
+                                                height: height,
+                                                weight: weight,
+                                                //婚否
+                                                mId: hunying,
+                                                //学历
+                                                eId: educations,
+                                                //专业
+                                                sId: works,
+                                                //招聘来源
+                                                rId: sources,
+
                                                 province: input_province,
                                                 city: input_city,
                                                 area: input_area,
                                                 detailAddress: detailAddress,
-                                                age: age,
-                                                // wx: weixin,
-                                                // qq: qq,
-                                                // email: youxiang,
-                                                height: height,
-                                                weight: weight,
-                                                // treatHistory: treatHistory,
-                                                // sickTimes: sickTimes,
-                                                // sickness: sickness,
-                                                // emergencyContact: emergencyContact,
-                                                supplement: supplement,
-                                                image: image1,
-                                                image2: image2,
-                                                image3: image3,
-                                                tdId: tdId || "",
+                                                // supplement: supplement,
+                                                // tdId: tdId || "",
                                             },
                                             async: true,
                                             type: 'post',
-                                            success: function(data) {
-                                                if(data.code == "1") {
-                                                    $("body").mLoading("hide");
-                                                    alert("信息添加成功,等待战区经理审核!");
-                                                    window.location.reload();
+                                            success: function (data) {
+                                                if (data.code == "1") {
+                                                    alert("信息添加成功");
+                                                    // window.location.reload();
                                                 } else {
-                                                    $("body").mLoading("hide");
                                                     alert(data.msg);
                                                 }
                                             },
-                                            error: function(xhr, type, errorThrown) {
+                                            error: function (xhr, type, errorThrown) {
                                                 alert('网络异常，请稍后再试！');
-                                                $("body").mLoading("hide");
                                                 console.log(xhr + errorThrown);
+                                            },
+                                            complete: function () {
+                                                $("body").mLoading("hide");
                                             }
                                         });
-                                    }
-                                },
-                                error: function(xhr, type, errorThrown) {
-                                    alert('网络异常，请稍后再试！');
-                                }
-                            });
-                        }
-                    }
+                            //         }
+                            //     }
+                            // })
+                        // }
+                    // }
 
                 })
             })

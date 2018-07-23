@@ -18,7 +18,6 @@
     <link rel="stylesheet" type="text/css" href="../../lib/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="../../lib/css/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../lib/css/select2.min.css">
-    <link rel="stylesheet" href="../../lib/css/jquery.mloading.css">
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
     <link rel="stylesheet" type="text/css" href="../../css/themes/flat-blue.css">
@@ -131,55 +130,26 @@
                             <div class="card">
                                 <div class="card-header">
 
-                                    <div class="card-title">
+                                    <div class="card-title col-xs-3">
                                         <div class="title">
                                             <a onclick='window.history.go(-1);' style='color:darkblue'><span class='fa fa-chevron-circle-left'>返回</a>
-                                            <button class="btn btn-success look" style="display: none">查看人事录入信息</button>
+                                            <button class="btn btn-success add" style="color:white;width:100px;border:1px solid;-webkit-border-radius: 20px;-moz-border-radius: 20px;border-radius: 20px;">补充信息</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">个人照片(<span style="color:red">*必填项</span>)</label>
-                                            <div class="col-sm-10">
-                                                <img id="f1" src="" alt="" style="width: 200px;height: 200px">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name" class="col-sm-2 control-label">姓名</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1"><i>*</i>必填项</span>
-                                                    <input disabled="disabled" type="text" id="name" class="form-control" aria-describedby="basic-addon1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="cj" class="col-sm-2 control-label">创建日期</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" disabled="disabled" id="cj" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="rz" class="col-sm-2 control-label">身份证号</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" disabled="disabled" id="Id" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="phone" class="col-sm-2 control-label">联系电话</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" disabled="disabled" id="phone" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="supplement" class="col-sm-2 control-label">备注</label>
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control" id="supplement" disabled="disabled" rows="3"></textarea>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <table class="table table-striped" cellspacing="0" width="100%" id="tableExcel">
+                                        <thead>
+                                        <tr>
+                                            <th>补充时间</th>
+                                            <th>详情</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <div class="M-box"></div>
                                 </div>
                             </div>
                         </div>
@@ -194,83 +164,111 @@
                 <a href="http://www.bj11ss.com/" title="医来伸手" target="_blank">----医来伸手</a>
             </div>
         </footer>
-        <div>
-            <!-- Javascript Libs -->
-            <script type="text/javascript" src="../../lib/js/jquery.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/Chart.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/bootstrap-switch.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/jquery.mloading.js"></script>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">补充信息添加</h4>
+                    </div>
+                    <div class="modal-body col-lg-12">
+                        <textarea name="addtext" id="addtext" cols="70" rows="10" style="resize:none" maxlength="200"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary addbc">添加补充</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!-- Javascript Libs -->
+        <script type="text/javascript" src="../../lib/js/jquery.min.js"></script>
+        <script type="text/javascript" src="../../lib/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../../lib/js/Chart.min.js"></script>
+        <script type="text/javascript" src="../../lib/js/bootstrap-switch.min.js"></script>
 
-            <script type="text/javascript" src="../../lib/js/jquery.matchHeight-min.js"></script>
-            <script type="text/javascript" src="../../lib/js/jquery.dataTables.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/dataTables.bootstrap.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/select2.full.min.js"></script>
-            <script type="text/javascript" src="../../lib/js/ace/ace.js"></script>
-            <script type="text/javascript" src="../../lib/js/ace/mode-html.js"></script>
-            <script type="text/javascript" src="../../lib/js/ace/theme-github.js"></script>
-            <!-- Javascript -->
-            <script type="text/javascript" src="../../js/app.js"></script>
-            <script src="../../js/dateFormat.js"></script>
-            <script type="text/javascript" src="../../js/theming.js"></script>
-            <script type="text/javascript" src="../../js/themings.js"></script>
+        <script type="text/javascript" src="../../lib/js/jquery.matchHeight-min.js"></script>
+        <script type="text/javascript" src="../../lib/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="../../lib/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="../../lib/js/select2.full.min.js"></script>
+        <script type="text/javascript" src="../../lib/js/ace/ace.js"></script>
+        <script type="text/javascript" src="../../lib/js/ace/mode-html.js"></script>
+        <script type="text/javascript" src="../../lib/js/ace/theme-github.js"></script>
+        <!-- Javascript -->
+        <script type="text/javascript" src="../../js/app.js"></script>
+        <script src="../../js/dateFormat.js"></script>
+        <script type="text/javascript" src="../../js/theming.js"></script>
+        <script type="text/javascript" src="../../js/themings.js"></script>
 
-            <script src="../../js/config.js"></script>
-            <script src="../../js/uploadImg.js"></script>
-            <script src="../../js/session_expire.js"></script>
-            <script type="text/javascript" src="../../js/personal_msg.js"></script>
+        <script src="../../js/config.js"></script>
+        <script src="../../js/uploadImg.js"></script>
+        <script src="../../js/session_expire.js"></script>
+        <script type="text/javascript" src="../../js/personal_msg.js"></script>
 
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    var ruId = window.location.search.split("pid=")[1].split("&")[0];
-                    $("body").mLoading("show");
-                    $.ajax({
-                        url: config.rootUrl + "user/getRecruitUser.do",
-                        data: {
-                            deviceToken: "html5",
-                            deviceType: "html5",
-                            userId: session_login.info.userId,
-                            ruId:ruId
-                        },
-                        async: true,
-                        type: 'post',
-                        success: function(data) {
-                            console.log(data);
-                            var info = data.info;
-                            $("#f1").attr("src",info.ruHead);
-                            $("#name").val(info.ruName);
-                            $("#phone").val(info.telephone);
-                            $("#supplement").val(info.supplement);
-                            $("#cj").val(new Date(info.createTime).format('yyyy-MM-dd h:m:s'));
-                            $("#Id").val(info.idCard);
+        <script type="text/javascript">
+            $(document).ready(function() {
 
-
-                            if(session_login.info.roleId=="6"||session_login.info.roleId=="3") {
-                                $(".look").css("display", "block");
-                                $(".look").on("click", function (e) {
-                                    e.stopPropagation();
-                                    e.preventDefault();
-                                    var realName = $("#name").val();
-                                    console.log(realName);
-                                    var phoneNo = $("#phone").val();
-                                    console.log(phoneNo);
-                                    window.location.href = "./renshi_luru.html?realName=" + realName + "&phoneNo=" + phoneNo;
-
-                                })
+                var ruId = window.location.search.split("pid=")[1].split("&")[0];
+                $(".add").on("click",function(){
+                    $('#myModal').modal('show');
+                    $(".addbc").on("click",function(){
+                        var text = $("#addtext").val();
+                        $.ajax({
+                            url:config.rootUrl + "user/addUserInfoDetail.do",
+                            data:{
+                                infoId:ruId,
+                                remark:text
+                            },
+                            type:"post",
+                            async:true,
+                            success:function(data){
+                                if(data.code==1){
+                                    window.location.reload();
+                                }
                             }
-                        },
-                        error: function(xhr, type, errorThrown) {
-                            alert('网络异常，请稍后再试！');
-                        },
-                        complete:function(){
-                            $("body").mLoading("hide");
-                        }
+                        })
                     });
+                });
+
+
+                $.ajax({
+                    url: config.rootUrl + "user/listUserInfoDetail.do",
+                    data: {
+                        deviceToken: "html5",
+                        deviceType: "html5",
+                        page:"1",
+                        rows:"10",
+                        infoId:ruId
+                    },
+                    async: true,
+                    type: 'post',
+                    success: function(data) {
+                        console.log(data);
+                        var info = data.info;
+                        var tbody = $(".table tbody")[0];
+                        for(var i in info){
+                            if(info[i].remark){
+                                var _remark = "<td >" + info[i].remark + "</td>" ;
+                            }else{
+                                _remark = "<td ></td>";
+                            }
+                            tbody.innerHTML += "<tr>" +
+                                "<td >" +  new Date(info[i].createTime).format('yyyy-MM-dd hh:mm:ss')+ "</td>" +
+                                _remark +
+                                "</tr>";
+                        }
+
+                    },
+                    error: function(xhr, type, errorThrown) {
+                        alert('网络异常，请稍后再试！');
+                    },
+
+                });
 
 
 
-                })
-            </script>
+            })
+        </script>
 </body>
 
 </html>

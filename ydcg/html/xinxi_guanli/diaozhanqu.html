@@ -49,7 +49,7 @@
                         <i class="fa fa-bars icon"></i>
                     </button>
                     <ol class="breadcrumb navbar-breadcrumb">
-                        <li>添加信息</li>
+                        <li>招聘信息</li>
                     </ol>
                     <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
                         <i class="fa fa-th icon"></i>
@@ -132,58 +132,41 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">自招人员信息添加</span>
-                    <div class="description">请输入正确<span class="tips">姓名、手机号</span>,<span class="tips">个人照片必须上传!!!</span></div>
+                    <span class="title">人员调战区</span>
+                    <!--<div class="description">请输入正确<span class="tips">职位、学历、来源意向、信息来源、</span>以及准确的<span class="tips">信息来源</span>,添加截图<span class="tips">第一张必须传!!!</span></div>-->
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <div class="title">自招人员信息添加</div>
-                                    <a class="btn btn-primary backBtn" onclick="window.history.go(-1)" style="display: none;">返回任务详情</a>
-                                    <a class="btn btn-primary backBtn" href="./wode_zhaopin.html">查看招聘列表</a>
+                                    <div class="title">
+                                        调战区
+                                        <a onclick='window.history.go(-1);' style='color:darkblue'><span class='fa fa-chevron-circle-left'>返回</span></a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <form class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="name" class="col-sm-2 control-label">姓名</label>
-                                        <div class="col-sm-10">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i>*</i>必填项</span>
-                                                <input type="text" id="name" class="form-control" placeholder="请输入姓名" aria-describedby="">
-                                            </div>
+                                        <label class="col-sm-2 control-label">调往战区(<span style="color:red">*必填项</span>)</label>
+                                        <div class="card-title col-xs-3">
+                                            <select id="zhanqu" style="width:100%" title="战区" aria-describedby="basic-addon1">
+                                                <optgroup label="请输入战区">
+                                                </optgroup>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="phone" class="col-sm-2 control-label">联系电话</label>
-                                        <div class="col-sm-10">
-                                            <input type="number" id="phone" class="form-control" placeholder="请输入联系电话">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone" class="col-sm-2 control-label">个人身份证号</label>
-                                        <div class="col-sm-10">
-                                            <input type="number" id="id_number" class="form-control" placeholder="请输入身份证号">
-                                        </div>
-                                    </div>
-                                    <!--<div class="form-group">-->
-                                        <!--<label for="addTime" class="col-sm-2 control-label">入职日期</label>-->
-                                        <!--<div class="col-sm-3">-->
-                                            <!--<input type="date" id="addTime" class="form-control">-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <div class="form-group">
-                                        <label for="supplement" class="col-sm-2 control-label">备注</label>
-                                        <div class="col-sm-10">
-                                            <textarea class="form-control" id="supplement" placeholder="补充	" rows="3"></textarea>
+                                        <label class="col-sm-2 control-label">战区经理评价(<span style="color:red">*必填项</span>)</label>
+                                        <div class="card-title col-xs-10">
+                                            <textarea name="pingjia" id="pj" cols="30" rows="10" style="width: 100%" placeholder="请输入评价"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"></label>
                                         <div class="col-sm-10">
-                                            <button type="button" class="btn btn-primary btn-lg save" style="width:100%">保存信息</button>
+                                            <button type="button" class="btn btn-primary btn-lg save" style="width:100%">提交</button>
                                         </div>
                                     </div>
                                 </form>
@@ -241,129 +224,53 @@
 
         <script type="text/javascript">
 
-
             $(function() {
-                var search = window.location.search;
-                if(search != "") {
-                    if(window.location.search.split("tdId=")[1]) {
-                        var tdId = window.location.search.split("tdId=")[1].split("&")[0];
-                        $(".backBtn").css("display", "block");
+                $("#zhanqu").select2({
+                    placeholder: "请选择战区"
+                });
+
+                //获取战区列表
+                $.ajax({
+                    url: config.rootUrl + "user/getListTeam.do",
+                    data: {
+                        deviceToken: "html5",
+                        deviceType: "html5",
+                        userId: session_login.info.userId,
+                        page: 1,
+                        rows: "200",
+                    },
+                    async: true,
+                    type: "post",
+                    success: function(data) {
+                        console.log(data);
+                        var zhanqu = $("#zhanqu");
+                        //添加选项内容
+                        var info = data.info;
+                        for(var i in info) {
+                            var _option = document.createElement("option");
+                            _option.value = info[i].teamId;
+                            _option.text = info[i].teamName;
+                            zhanqu.append(_option);
+                        }
+                    },
+                    error: function() {
+                        alert("网络错误");
+                    },
+                    complete:function(){
+                        $("body").mLoading("hide");
                     }
-                }
-
-
-
+                })
 
                 //提交事件绑定
                 $(".save").on("click", function() {
-                    $.ajax({
-                        url:config.rootUrl + "user/getBankCard.do",
-                        data:{
-                            deviceToken: "html5",
-                            deviceType: "html5",
-                            userId:session_login.info.userId,
-                            cardType:"wx_pub"
-                        },
-                        type:"post",
-                        async:true,
-                        success:function(data){
-                            console.log(data);
-                            if(data.code=="0"){
-                                alert("您的账号未绑定微信！无法提交！");
-                                return;
-                            }else{
-                                var withdrawId = data.info.withdrawId;
-                                //合成提交表单数据
-                                //1:姓名
-                                var name = $("#name").val();
-                                if(name == "") {
-                                    alert("请填写姓名");
-                                    return;
-                                }
-                                //11:电话号码
-                                var phone = $("#phone").val();
-                                isphone(phone);
-                                if(phone==""){
-                                    alert("请填写手机号!");
-                                    return;
-                                }
-
-                                function isphone(inpurStr) {
-                                    if(phone.length == 0) {
-                                        if(confirm('手机号码未填写,确认继续保存?')) {
-                                            return;
-                                        } else {
-                                            $("#phone").focus();
-                                        }
-                                    }
-                                    if(phone.length != 11) {
-                                        if(confirm('手机号码位数不对,确认继续保存?')) {
-                                            return;
-                                        } else {
-                                            $("#phone").focus();
-                                        }
-                                    }
-
-                                    var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(17[0-9]{1})|(18[0-9]{1})|(19[0-9]{1}))+\d{8})$/;
-                                    if(!myreg.test(phone)) {
-                                        if(confirm('手机号码无效,确认继续保存?')) {
-                                            return;
-                                        } else {
-                                            $("#phone").focus();
-                                        }
-
-                                    }
-                                }
-
-                                var id_number = $("#id_number").val();
-                                if(id_number==""){
-                                    alert("身份证号未填写");
-                                    return;
-                                }
-
-                                //22:备注
-                                var supplement = $("#supplement").val();
+                    var pj = $("#pj").val();
+                    if(pj==""){
+                        alert("请写下您的评价！");
+                        return;
+                    }
 
 
-                                // var date = $(addTime).val();
-                                // if(date==""){
-                                //     alert("入职日期未填写！");
-                                //     return;
-                                // }
-                                $.ajax({
-                                    url: config.rootUrl + "user/addRecruitUser.do",
-                                    data: {
-                                        deviceToken: "html5",
-                                        deviceType: "html5",
-                                        userId: session_login.info.userId,
-                                        ruName:name,
-                                        telephone:phone,
-                                        idCard:id_number,
-                                        supplement:supplement,
-                                        withdrawId:withdrawId
-                                    },
-                                    async: true,
-                                    type: 'post',
-                                    success: function(data) {
-                                        if(data.code == "1") {
-                                            $("body").mLoading("hide");
-                                            alert("信息添加成功!");
-                                            window.location.reload();
-                                        } else {
-                                            $("body").mLoading("hide");
-                                            alert(data.msg);
-                                        }
-                                    },
-                                    error: function(xhr, type, errorThrown) {
-                                        alert('网络异常，请稍后再试！');
-                                        $("body").mLoading("hide");
-                                        console.log(xhr + errorThrown);
-                                    }
-                                });
-                            }
-                        }
-                    })
-                });
+                })
             })
         </script>
         <!-- Javascript -->

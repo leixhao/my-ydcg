@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../../lib/css/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../lib/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../../lib/css/pagination.css">
-    <link rel="stylesheet" type="text/css" href="../../lib/css/jquery.mloading.css">
+    <link rel="stylesheet" href="../../lib/css/jquery.mloading.css">
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
     <link rel="stylesheet" type="text/css" href="../../css/themes/flat-blue.css">
@@ -49,7 +49,7 @@
                         </button>
                         <ol class="breadcrumb navbar-breadcrumb">
                             <li>信息管理</li>
-                            <li class="active">招聘列表</li>
+                            <li class="active">人员信息列表</li>
                         </ol>
                         <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
                             <i class="fa fa-th icon"></i>
@@ -133,25 +133,22 @@
             <div class="container-fluid">
                 <div class="side-body">
                     <div class="page-title">
-                        <span class="title">查看<span style="color:red;"></span>招聘列表</span>
+                        <span class="title">查看<span style="color:red;"></span>人员信息列表</span>
                         <div class="description">
                         </div>
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <div class="card-title col-xs-3 zhanqu">
-                                        <select id="zhanqu" style="width:100%" title="战区" aria-describedby="basic-addon1">
-                                            <optgroup label="请输入战区">
-                                            </optgroup>
-                                        </select>
-                                    </div>
                                     <div class="card-title col-xs-3">
-                                        <select id="status" style="width:100%" title="状态" aria-describedby="basic-addon1">
-                                            <optgroup label="请选择状态">
-                                                <option value="verify">待审核</option>
-                                                <option value="transfer">审核通过</option>
-                                                <option value="notverify">审核未通过</option>
+                                        <input type="text" id="realname" class="col-lg-12" placeholder="请输入您想搜索的人名">
+                                    </div>
+                                    <div class="card-title col-xs-3 status">
+                                        <select id="isdel" class="col-sm-5 col-xs-5" title="状态">
+                                            <optgroup label="请选择状态" class="type">
+                                                <option value="0">在职</option>
+                                                <option value="1">离职</option>
+                                                <!--<option value="2">删除</option>-->
                                             </optgroup>
                                         </select>
                                     </div>
@@ -165,10 +162,10 @@
                                     <table class="table table-striped" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
+                                            <th>头像</th>
                                             <th>姓名</th>
-                                            <th>提交人</th>
+                                            <th>状态</th>
                                             <th>创建时间</th>
-                                            <th>手机号</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
@@ -235,7 +232,6 @@
             <script type="text/javascript" src="../../js/theming.js"></script>
             <script type="text/javascript" src="../../js/themings.js"></script>
 
-
             <script src="../../js/config.js"></script>
             <script src="../../js/uploadImg.js"></script>
             <script src="../../js/session_expire.js"></script>
@@ -253,195 +249,218 @@
                         $(".card-title .title").html("<a onclick='window.history.go(-1);' style='color:darkblue'><span class='fa fa-chevron-circle-left'>返回<----</span> " + decodeURI(title) + "</a>");
 
                     }
-                    $("#zhanqu").select2({
-                        placeholder: "请选择战区"
-                    });
-
-                    if(session_login.info.roleId=="4"||session_login.info.roleId==6||session_login.info.roleId==3){
-                        setTable("","verify","");
-                        $("body").mLoading("show");
-                        $.ajax({
-                            url: config.rootUrl + "user/getListTeam.do",
-                            data: {
-                                deviceToken: "html5",
-                                deviceType: "html5",
-                                userId: session_login.info.userId,
-                                page: 1,
-                                rows: "200",
-                            },
-                            async: true,
-                            type: "post",
-                            success: function(data) {
-                                console.log(data);
-                                var zhanqu = $("#zhanqu");
-                                //添加选项内容
-                                var info = data.info;
-                                for(var i in info) {
-                                    var _option = document.createElement("option");
-                                    _option.value = info[i].teamId;
-                                    _option.text = info[i].teamName;
-                                    zhanqu.append(_option);
-                                }
-                            },
-                            error: function() {
-                                alert("网络错误");
-                            },
-                            complete:function(){
-                                $("body").mLoading("hide");
-                            }
-                        });
-                        $("#zhanqu").on("change", function(e) {
-                            var teamId = $("#zhanqu").val();
-                            console.log(teamId);
-                        });
-                        var memberId ="";
-                        $("#status").on("change", function(e) {
-                            var status = $(this).val();
-                        });
-                        $(".dataSearch").on("click", function(e) {
-                            teamId = teamId;
-                            var status = $("#status").val();
-                            setTable(teamId,status,memberId);
-                        });
-                    }else{
-                        // $(".card-header").css("display","none");
-                        $(".zhanqu").css("display","none");
-                        var teamId = session_login.info.teamId;
-                        var memberId = session_login.info.userId;
-                        setTable(teamId,"verify",memberId);
-                        $("#status").on("change", function(e) {
-                            var status = $(this).val();
-                        });
-                        $(".dataSearch").on("click", function(e) {
-                            var status = $("#status").val();
-                            setTable(teamId,status,memberId);
-                        });
-                    }
-
 
                     $('.table tbody').on('click', '.goDetail', function(e) {
                         e.stopPropagation();
                         e.preventDefault();
                         var pid = $(this).parents('tr').attr("data-pid");
                         var title = $(this).parents('tr').attr("data-title");
-                        window.location.href = "zhaopin_xiangqing.html?pid=" + pid + "&title=" + title + "&fromWhere=wode_xinxi.html"+"&tdId="+tdId;
+                        window.location.href = "renyuan_xiangqing.html?pid=" + pid + "&title=" + title + "&fromWhere=wode_xinxi.html";
                     });
 
-                    $('.table tbody').on('click', '.pass', function(e) {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        var pid = $(this).parents('tr').attr("data-pid");
+                    $(".dataSearch").on("click", function(e) {
+                        var isdel = $("#isdel").val();
+                        var realName = $("#realname").val();
+                        setTable(realName,isdel);
+                    });
+
+                    function setDeom (pid,isdel){
                         $("body").mLoading("show");
                         $.ajax({
-                            url:config.rootUrl + "user/verifyRecruit.do",
+                            url:config.rootUrl + "user/updateUserInfo.do",
                             data:{
-                                deviceToken: "html5",
-                                deviceType: "html5",
-                                userId: session_login.info.userId,
-                                ruId : pid,
-                                isPass:"1",
-                                reason:'',
-                                userId:session_login.info.userId
+                                infoId:pid,
+                                isDel:isdel
                             },
-                            async:true,
                             type:"post",
+                            async:true,
                             success:function(data){
                                 console.log(data);
-                                if(data.code == "1"){
+                                if(data.code==1){
                                     alert(data.msg);
                                     window.location.reload();
-                                }else{
-                                    alert(data.msg);
-                                    return;
                                 }
                             },
                             complete:function(){
                                 $("body").mLoading("hide");
                             }
                         })
-                    });
+                    }
 
-                    $('.table tbody').on('click', '.nopass', function(e) {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        var pid = $(this).parents('tr').attr("data-pid");
+                    setTable();
+                    function setTable(realName,isdel){
                         $("body").mLoading("show");
                         $.ajax({
-                            url:config.rootUrl + "user/verifyRecruit.do",
-                            data:{
-                                deviceToken: "html5",
-                                deviceType: "html5",
-                                userId: session_login.info.userId,
-                                ruId : pid,
-                                isPass:"0",
-                                reason:'',
-                                userId:session_login.info.userId
-                            },
-                            async:true,
-                            type:"post",
-                            success:function(data){
-                                console.log(data);
-                                if(data.code == "1"){
-                                    alert(data.msg);
-                                    window.location.reload();
-                                }else{
-                                    alert(data.msg);
-                                    return
-                                }
-                            },
-                            complete:function(){
-                                $("body").mLoading("hide");
-                            }
-                        })
-                    });
-
-
-
-
-
-                    function setTable(teamId,status,memberId){
-                        $("body").mLoading("show");
-                        $.ajax({
-                            url: config.rootUrl + "user/listRecruitUser.do",
+                            url: config.rootUrl + "user/listUserInfo.do",
                             data: {
                                 deviceToken: "html5",
                                 deviceType: "html5",
                                 userId:session_login.info.userId,
-                                memberId: memberId,
-                                status:status||"verify",
-                                teamId:teamId,
+                                // memberId: memberId,
+                                // teamId:teamId,
+                                realName:realName||"",
+                                isDel:isdel||0,
                                 page:"1",
-                                rows:"100"
+                                rows:"20"
                             },
                             async: true,
                             type: 'post',
                             success: function(data) {
                                 console.log(data);
-                                if(data.info.length == "0"){
-                                    alert("没有数据！");
-                                }
                                 var info = data.info;
-                                // //1:姓名
-                                $("#name").val(info.ruName);
-
+                                var pageCount = data.pageCount;
                                 var tbody = $(".table tbody")[0];
                                 tbody.innerHTML = "";
                                 for(var i = 0; i < info.length; i++) {
-                                    if(session_login.info.userName == "scss31418"){
-                                        var _temp = "<td class='goDetail'><button class='btn btn-success pass'>通过</button> <button class='btn btn-danger nopass'>不通过</button></td>"
+                                    if(session_login.info.userName == "scss25050"||session_login.info.userName == "scss31418"){
+                                        var _temp = "<td class='goDetail'><button class='btn btn-success zz'>在职</button> <button class='btn btn-primary lz'>离职</button> <button class='btn btn-danger sc'>删除</button></td>"
                                     }else {
-                                        _temp = ""
+                                        _temp = "<td class='goDetail'></td>";
                                     }
 
 
-                                    tbody.innerHTML += "<tr data-pid='" + info[i].ruId + "' data-title='" + info[i].ruName + "'   style='cursor:pointer'>" +
-                                        "<td class='goDetail'>" + info[i].ruName + "</td>" +
+                                    if($("#isdel").val() == 0){
+                                        var _status = "<td class='goDetail'>在职</td>"
+                                    }else if($("#isdel").val() == 1){
+                                        _status = "<td class='goDetail'>离职</td>"
+                                    }else if($("#isdel").val() == 2){
+                                        _status = "<td class='goDetail'>已被删除</td>"
+                                    }else{
+                                        _status = "";
+                                    }
+
+                                    if(session_login.info.roleId == "3" || session_login.info.userName == "scss31418" || session_login.info.userName == "scss31376"){
+                                        var _img = "<td class='goDetail'><image src='"+ info[i].headImage +"' style='width: 50px'></image></td>";
+                                        $(".status").css("display","block");
+                                    }else{
+                                        $(".status").css("display","none");
+                                        _img = "<td class='goDetail'></td>";
+                                    }
+
+                                    tbody.innerHTML += "<tr data-pid='" + info[i].infoId + "' data-title='" + info[i].realName + "'   style='cursor:pointer'>" +
+                                         _img+
                                         "<td class='goDetail'>" + info[i].realName + "</td>" +
+                                         _status+
                                         "<td class='goDetail'>" + new Date(info[i].createTime).format('yyyy-MM-dd h:m:s') + "</td>" +
-                                        "<td class='goDetail'>" + info[i].telephone + "</td>" +
-                                        _temp +
+                                         _temp+
                                         "</tr>";
                                 }
+
+                                $('.table tbody').on('click', '.zz', function(e) {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    var pid = $(this).parents('tr').attr("data-pid");
+                                    if(confirm("确定改变这条人员信息？！")){
+                                        setDeom(pid,0)
+                                    }
+                                });
+
+                                $('.table tbody').on('click', '.lz', function(e) {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    var pid = $(this).parents('tr').attr("data-pid");
+                                    if(confirm("确认改变这条人员信息？！")){
+                                        setDeom(pid,1)
+                                    }
+                                });
+
+                                $('.table tbody').on('click', '.sc', function(e) {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    var pid = $(this).parents('tr').attr("data-pid");
+                                    if(confirm("确定删除这条人员信息？！")){
+                                        setDeom(pid,2)
+                                    }
+                                });
+                                $('.M-box').pagination({
+                                    pageCount: pageCount,
+                                    showData: 10,
+                                    jump: true,
+                                    coping: true,
+                                    homePage: '首页',
+                                    endPage: '末页',
+                                    prevContent: '上页',
+                                    nextContent: '下页',
+                                    callback: function(api) {
+                                        $("body").mLoading("show");
+                                        $.ajax({
+                                            url: config.rootUrl + "user/listUserInfo.do",
+                                            data: {
+                                                deviceToken: "html5",
+                                                deviceType: "html5",
+                                                userId:session_login.info.userId,
+                                                // memberId: memberId,
+                                                // teamId:teamId,
+                                                realName:realName||"",
+                                                isDel:isdel||0,
+                                                page: api.getCurrent(),
+                                                rows: "20",
+                                            },
+                                            async: true,
+                                            type: "post",
+                                            success: function(data) {
+                                                console.log(data);
+                                                var info = data.info;
+                                                var tbody = $(".table tbody")[0];
+                                                tbody.innerHTML = ""
+                                                for(var i = 0; i < info.length; i++) {
+                                                    if(session_login.info.userName == "scss25050"||session_login.info.userName == "scss31418"){
+                                                        var _temp = "<td class='goDetail'><button class='btn btn-success zz'>在职</button> <button class='btn btn-primary lz'>离职</button> <button class='btn btn-danger sc'>删除</button></td>"
+                                                    }else {
+                                                        _temp = "<td class='goDetail'></td>";
+                                                    };
+
+                                                    if(session_login.info.roleId == "3" || session_login.info.userName == "scss31418" || session_login.info.userName == "scss31376"){
+                                                        var _img = "<td class='goDetail'><image src='"+ info[i].headImage +"' style='width: 50px'></image></td>";
+                                                    }else{
+                                                        _img = "<td class='goDetail'></td>";
+                                                    }
+
+                                                    tbody.innerHTML += "<tr data-pid='" + info[i].infoId + "' data-title='" + info[i].realName + "'   style='cursor:pointer'>" +
+                                                        _img+
+                                                        "<td class='goDetail'>" + info[i].realName + "</td>" +
+                                                        "<td class='goDetail'>" + new Date(info[i].createTime).format('yyyy-MM-dd h:m:s') + "</td>" +
+                                                        _temp+
+                                                        "</tr>";
+                                                }
+
+                                                $('.table tbody').on('click', '.zz', function(e) {
+                                                    e.stopPropagation();
+                                                    e.preventDefault();
+                                                    var pid = $(this).parents('tr').attr("data-pid");
+                                                    if(confirm("确定改变这条人员信息？！")){
+                                                        setDeom(pid,0)
+                                                    }
+                                                });
+
+                                                $('.table tbody').on('click', '.lz', function(e) {
+                                                    e.stopPropagation();
+                                                    e.preventDefault();
+                                                    var pid = $(this).parents('tr').attr("data-pid");
+                                                    if(confirm("确认改变这条人员信息？！")){
+                                                        setDeom(pid,1)
+                                                    }
+                                                });
+
+                                                $('.table tbody').on('click', '.sc', function(e) {
+                                                    e.stopPropagation();
+                                                    e.preventDefault();
+                                                    var pid = $(this).parents('tr').attr("data-pid");
+                                                    if(confirm("确定删除这条人员信息？！")){
+                                                        setDeom(pid,2)
+                                                    }
+                                                });
+                                            },
+                                            error: function() {
+                                                alert("网络错误");
+                                            },
+                                            complete: function() {
+                                                $("body").mLoading("hide"); //关闭loading组件
+                                            }
+                                        })
+                                    }
+
+                                });
 
                             },
                             error: function(xhr, type, errorThrown) {

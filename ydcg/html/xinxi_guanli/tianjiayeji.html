@@ -416,7 +416,6 @@
 														<img src="../../img/addphoto.png" style="width:100%;cursor: pointer;" class="f3" />
 													</div>
 												</div>
-
 											</div>
 											<div class="form-group">
 												<label class="col-sm-2 control-label">保存</label>
@@ -534,11 +533,11 @@
 						$(".f1").on("click", function(e) {
 							e.preventDefault();
 							$("input:file[name=f1]").trigger("click");
-						})
+						});
 						$(".f2").on("click", function(e) {
 							e.preventDefault();
 							$("input:file[name=f2]").trigger("click");
-						})
+						});
 						$(".f3").on("click", function(e) {
 							e.preventDefault();
 							$("input:file[name=f3]").trigger("click");
@@ -988,7 +987,7 @@
 														if(data.code == "1") {
 															$("body").mLoading("hide");
 															alert("信息添加成功,等待战区经理审核!");
-															window.location.reload();
+															// window.location.reload();
 														} else {
 															$("body").mLoading("hide");
 															alert(data.msg);
